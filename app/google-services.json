@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "411742771513",
+    "project_id": "anime-e4c27",
+    "storage_bucket": "anime-e4c27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411742771513:android:c2e74c59a6fdafd72e30e8",
+        "android_client_info": {
+          "package_name": "com.denisbovsunivskyi.animetier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "411742771513-7lqrvmmr7n9lfidv1f4muthtmosm6b0p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwyYPFQ0iCL_fD-aJ4aa9u2ZUC1L78rAc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "411742771513-7lqrvmmr7n9lfidv1f4muthtmosm6b0p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

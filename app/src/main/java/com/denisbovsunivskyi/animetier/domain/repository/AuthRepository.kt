@@ -11,5 +11,5 @@ interface AuthRepository {
         password: String,
     ): Flow<ResponseState<FirebaseUser,String>>
 
-    suspend fun registerUserByEmail(model: FirebaseUser): Flow<ResponseState<FirebaseUser,String>>
+    suspend fun registerUserByEmail(model: FirebaseUser): ResponseState<FirebaseUser,String>
 }

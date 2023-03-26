@@ -11,6 +11,6 @@ interface AuthDataSource {
     ): Flow<ResponseState<FirebaseUser,String>>
 
     suspend fun registerUserWithEmail(
-        model: FirebaseUser,
-    ): Flow<ResponseState<FirebaseUser,String>>
+        user: FirebaseUser,
+    ): ResponseState<FirebaseUser,String>
 }

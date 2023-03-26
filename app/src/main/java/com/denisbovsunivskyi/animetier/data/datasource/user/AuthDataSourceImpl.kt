@@ -7,7 +7,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
@@ -21,7 +20,7 @@ class AuthDataSourceImpl @Inject constructor(
         email: String,
         password: String
     ): Flow<ResponseState<FirebaseUser, String>> {
-        return flow {  }
+        return flow { }
     }
 
 
@@ -46,24 +45,22 @@ class AuthDataSourceImpl @Inject constructor(
 
     override suspend fun registerUserWithEmail(
         user: FirebaseUser,
-    ): Flow<ResponseState<FirebaseUser,String>> {
-        return flow {
-            try {
-                val data =
-                    firebaseAuth.createUserWithEmailAndPassword(user.email, user.password).await()
-                user.userId = data.user?.uid ?: ""
-                emit(ResponseState.Success(user))
-            } catch (e: FirebaseAuthWeakPasswordException) {
-                emit(ResponseState.Error("Authentication failed, Password should be at least 6 characters"))
-            } catch (e: FirebaseAuthInvalidCredentialsException) {
-                emit(ResponseState.Error("Authentication failed, Invalid email entered"))
-            } catch (e: FirebaseAuthUserCollisionException) {
-                emit(ResponseState.Error("Authentication failed, Email already registered."))
-            } catch (e: Exception) {
-                emit(ResponseState.Error(e.message.toString()))
-            }
-
+    ): ResponseState<FirebaseUser, String> {
+        return try {
+            val data =
+                firebaseAuth.createUserWithEmailAndPassword(user.email, user.password).await()
+            user.userId = data.user?.uid ?: ""
+            ResponseState.Success(user)
+        } catch (e: FirebaseAuthWeakPasswordException) {
+            ResponseState.Error("Authentication failed, Password should be at least 6 characters")
+        } catch (e: FirebaseAuthInvalidCredentialsException) {
+            ResponseState.Error("Authentication failed, Invalid email entered")
+        } catch (e: FirebaseAuthUserCollisionException) {
+            ResponseState.Error("Authentication failed, Email already registered.")
+        } catch (e: Exception) {
+            ResponseState.Error(e.message.toString())
         }
+
     }
 
     companion object {

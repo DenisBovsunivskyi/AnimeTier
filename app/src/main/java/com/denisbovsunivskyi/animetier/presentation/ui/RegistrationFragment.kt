@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.RegisterActions
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.RegistrationViewModel
+import com.denisbovsunivskyi.animetier.presentation.utils.setErrorMsg
 import com.example.animetier.R
 import com.example.animetier.databinding.FragmentRegistrationBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,8 +28,48 @@ class RegistrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRegistrationBinding.bind(view)
-        binding.register.setOnClickListener {
-            viewModel.register()
+        viewModel.clearModel()
+        initListeners()
+        initViewModels()
+        initClearFocusInputs()
+    }
+
+
+     private fun initListeners() {
+        with(binding) {
+            registerBtn.setOnClickListener {
+                viewModel.register()
+            }
+        }
+    }
+    private fun initClearFocusInputs() {
+        binding.editEmail.setTargetForCleanFocus(binding.inputEmail)
+        binding.editEmail.setNextTargetView(binding.editPassword)
+        binding.editPassword.setTargetForCleanFocus(binding.inputPassword)
+        binding.editPassword.setNextTargetView(binding.inputConfirmPassword)
+        binding.editConfirmPassword.setTargetForCleanFocus(binding.editConfirmPassword)
+
+    }
+     private fun initViewModels() {
+        viewModel.registrationState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is RegisterActions.Error.EmailIsNotCorrect -> {
+                    binding.inputEmail.setErrorMsg(state.message)
+                }
+                is RegisterActions.Error.PasswordIsToShort -> {
+                    binding.inputPassword.setErrorMsg(state.message)
+                }
+                is RegisterActions.Error.PasswordsNotMatch -> {
+                    binding.inputPassword.setErrorMsg(state.message)
+                    binding.inputConfirmPassword.setErrorMsg(state.message)
+                }
+                is RegisterActions.Success.FirstStepSuccess -> {
+                    //todo
+                }
+                is RegisterActions.Loading -> {
+
+                }
+            }
         }
     }
 

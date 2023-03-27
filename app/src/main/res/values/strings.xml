@@ -12,4 +12,8 @@
     <string name="text_confirm_password">Confirm password</string>
     <string name="text_register">Register</string>
     <string name="text_continue">Continue</string>
+    <string name="text_sign_in_to_start">Sign in to start</string>
+    <string name="text_havent_account">Haven\'t account?</string>
+    <string name="text_sign_up">Sign up!</string>
+    <string name="text_forgot_password">Forgot password?</string>
 </resources>

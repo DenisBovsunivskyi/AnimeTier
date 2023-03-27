@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.presentation.model
+package com.denisbovsunivskyi.animetier.presentation.model.auth
 
 import androidx.databinding.ObservableField
 import java.io.File

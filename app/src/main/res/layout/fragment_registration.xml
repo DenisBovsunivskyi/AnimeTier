@@ -6,147 +6,120 @@
 
         <variable
             name="model"
-            type="com.denisbovsunivskyi.animetier.presentation.model.SignUpModel" />
+            type="com.denisbovsunivskyi.animetier.presentation.model.auth.SignUpModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:fillViewport="true">
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:layout_constraintTop_toTopOf="parent">
-
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
+<androidx.appcompat.widget.AppCompatImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_sign_up_image"
+    android:layout_gravity="center_horizontal"/>
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title"
                 style="@style/Text.H1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="56dp"
-                android:text="@string/text_welcome"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/text_welcome" />
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/Text.H5.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/text_sign_up_to_start"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:text="@string/text_sign_up_to_start" />
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/constraintLayout"
-            app:layout_constraintVertical_bias="1.0">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/bottomLayout"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bottom_background_gradient"
-                android:orientation="vertical">
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                style="@style/TextInputLayout">
 
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_email"
+                <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
+                    android:id="@+id/edit_email"
+                    style="@style/TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
-                    android:theme="@style/TextInputLayout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/card_number_label">
+                    android:hint="@string/text_email"
+                    android:inputType="textEmailAddress|textNoSuggestions"
+                    android:text="@={model.email}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
-                        android:id="@+id/edit_email"
-                        style="@style/TextInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/text_email"
-                        android:text="@={model.email}" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                style="@style/TextInputLayout">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_password"
+                <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
+                    android:id="@+id/edit_password"
+                    style="@style/TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
-                    android:theme="@style/TextInputLayout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/card_number_label">
+                    android:hint="@string/text_password"
+                    android:inputType="textPassword"
+                    android:text="@={model.password}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
-                        android:id="@+id/edit_password"
-                        style="@style/TextInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/text_password"
-                        android:inputType="textPassword"
-                        android:text="@={model.password}" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                style="@style/TextInputLayout">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_confirm_password"
+                <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
+                    android:id="@+id/edit_confirm_password"
+                    style="@style/TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:theme="@style/TextInputLayout"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/card_number_label">
+                    android:hint="@string/text_confirm_password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword|textNoSuggestions"
+                    android:text="@={model.confirmPassword}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
-                        android:id="@+id/edit_confirm_password"
-                        style="@style/TextInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/text_confirm_password"
-                        android:inputType="textPassword"
-                        android:text="@={model.confirmPassword}" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/text_have_account_btn"
+                style="@style/TransparentButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:text="@string/text_have_account_sing_in"
+                android:textAppearance="@style/Text.H5.Light" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/Text.H5.White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="60dp"
-                    android:text="@string/text_have_account_sing_in" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/register_btn"
-                    android:layout_width="match_parent"
-                    android:layout_marginHorizontal="48dp"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="10dp"
-                    android:enabled="false"
-                    android:layout_gravity="center"
-                    app:cornerRadius="20dp"
-                    android:backgroundTint="@color/grey_dark"
-                    android:textAppearance="@style/Text.H5.White"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="50dp"
-                    android:text="@string/text_continue" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.core.widget.NestedScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/register_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="48dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="75dp"
+                android:backgroundTint="@color/grey_dark"
+                android:enabled="false"
+                android:paddingVertical="10dp"
+                android:text="@string/text_continue"
+                android:textAppearance="@style/Text.H5.Light"
+                app:cornerRadius="20dp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
 
 </layout>

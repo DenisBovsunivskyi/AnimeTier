@@ -40,14 +40,17 @@ class RegistrationFragment : Fragment() {
             registerBtn.setOnClickListener {
                 viewModel.register()
             }
+            textHaveAccountBtn.setOnClickListener {
+                activity?.onBackPressedDispatcher?.onBackPressed()
+            }
         }
     }
     private fun initClearFocusInputs() {
         binding.editEmail.setTargetForCleanFocus(binding.inputEmail)
         binding.editEmail.setNextTargetView(binding.editPassword)
         binding.editPassword.setTargetForCleanFocus(binding.inputPassword)
-        binding.editPassword.setNextTargetView(binding.inputConfirmPassword)
-        binding.editConfirmPassword.setTargetForCleanFocus(binding.editConfirmPassword)
+        binding.editPassword.setNextTargetView(binding.editConfirmPassword)
+        binding.editConfirmPassword.setTargetForCleanFocus(binding.inputConfirmPassword)
 
     }
      private fun initViewModels() {

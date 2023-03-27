@@ -1,6 +1,7 @@
 package com.denisbovsunivskyi.animetier.presentation.ui.viewmodels
 
 import android.util.Log
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,10 +15,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegistrationViewModel @Inject constructor(
+class AuthViewModel @Inject constructor(
     private val registerUserUseCase: RegisterUserUseCase
 ) :
     ViewModel() {
+    val isFirstOpen:ObservableBoolean = ObservableBoolean(false)
     var signUpModel: SignUpModel = SignUpModel()
     val registrationState: MutableLiveData<RegisterActions> = MutableLiveData()
     fun register() {
@@ -49,20 +51,4 @@ class RegistrationViewModel @Inject constructor(
     fun clearModel() {
         signUpModel = SignUpModel()
     }
-}
-
-sealed class RegisterActions {
-    sealed class Success : RegisterActions() {
-        object FirstStepSuccess : Success()
-    }
-
-    sealed class Error : RegisterActions() {
-        data class EmailIsNotCorrect(val message: String) : Error()
-        data class PasswordIsToShort(val message: String) : Error()
-        data class PasswordsNotMatch(val message: String) : Error()
-
-    }
-
-    object Loading : Success()
-
 }

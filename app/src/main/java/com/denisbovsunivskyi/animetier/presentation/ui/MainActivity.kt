@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<RegistrationViewModel>()
+    private val authViewModel by viewModels<RegistrationViewModel>()
 
     private lateinit var binding : ActivityMainBinding
 

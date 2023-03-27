@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey_dark">#424242</color>
     <color name="grey">#9D9D9D</color>
+    <color name="grey_status_bar">#309D9D9D</color>
     <color name="primary">#A2B2FC</color>
+    <color name="blue">#2079FF</color>
 
 </resources>

@@ -11,7 +11,7 @@
 
         <!-- Status bar color. -->
         <!-- Customize your theme here. -->
-        <item name="android:statusBarColor">@color/grey_status_bar</item>
-
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

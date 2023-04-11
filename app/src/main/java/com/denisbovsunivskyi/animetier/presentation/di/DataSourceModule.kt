@@ -22,11 +22,15 @@ class DataSourceModule {
     @Provides
     @Singleton
     fun provideAuthDataSource(@ApplicationContext context: Context): AuthDataSource {
-        return AuthDataSourceImpl(Firebase.auth,context)
+        return AuthDataSourceImpl(
+            Firebase.auth,
+            context
+        )
     }
+
     @Provides
     @Singleton
-    fun provideUpdateUserDataSource(firebaseFirestore:FirebaseFirestore): UpdateUserDataSource {
+    fun provideUpdateUserDataSource(firebaseFirestore: FirebaseFirestore): UpdateUserDataSource {
         return UpdateUserDataSourceImpl(firebaseFirestore)
     }
 }

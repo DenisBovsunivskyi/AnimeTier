@@ -17,6 +17,7 @@ class UseCaseModule {
     fun provideAuthUseCase(authRepository: AuthRepository): AuthUserUseCase {
         return AuthUserUseCase(authRepository)
     }
+
     @Provides
     @Singleton
     fun provideRegisterUseCase(authRepository: AuthRepository): RegisterUserUseCase {

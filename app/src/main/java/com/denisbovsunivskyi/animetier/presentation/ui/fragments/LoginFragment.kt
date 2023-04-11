@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.presentation.ui
+package com.denisbovsunivskyi.animetier.presentation.ui.fragments
 
 import android.os.Bundle
 import android.view.Gravity
@@ -6,25 +6,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.transition.Slide
 import androidx.transition.TransitionManager
-import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.AuthViewModel
+import com.denisbovsunivskyi.animetier.R
+import com.denisbovsunivskyi.animetier.databinding.FragmentLoginBinding
+import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.AuthActions
+import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.LoginViewModel
 import com.denisbovsunivskyi.animetier.presentation.utils.colorizeEnd
-import com.example.animetier.R
-import com.example.animetier.databinding.FragmentLoginBinding
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
-    private val authViewModel by activityViewModels<AuthViewModel>()
+    private val loginViewModel by activityViewModels<LoginViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,21 +47,41 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.bind(view)
         initViews()
         initListeners()
+        initViewModels()
 
     }
+
+    private fun initViewModels() {
+        binding.model = loginViewModel.signInModel
+       lifecycleScope.launch {
+           repeatOnLifecycle(Lifecycle.State.STARTED){
+               loginViewModel.loginStateFlow.collect{ state ->
+                   when (state) {
+                       is AuthActions.Success.LoginSuccess -> {
+                           openHomeFragment()
+                       }
+                       is AuthActions.Failed.LoginFailed -> {
+                           Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+                       }
+                       else -> {}
+                   }
+               }
+           }
+
+        }
+
+    }
+
 
     private fun initListeners() {
         with(binding) {
             haventAccountBtn.setOnClickListener {
                 openSignUpFragment()
             }
-
-//            registerBtn.setOnClickListener {
-//
-//
-//            }
-
-
+            loginBtn.setOnClickListener {
+                loginViewModel.login()
+                    //openHomeFragment()
+            }
         }
     }
 
@@ -63,9 +91,8 @@ class LoginFragment : Fragment() {
             getString(R.string.text_sign_up),
             getColor(requireContext(), R.color.grey_dark)
         )
-        if(!authViewModel.isFirstOpen.get()){
+        if (!loginViewModel.isFirstOpen.get()) {
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-                binding.welcomeImg.visibility = View.INVISIBLE
                 delay(100L)
                 val transition = Slide(Gravity.END)
                 transition.duration = 1000L
@@ -73,8 +100,10 @@ class LoginFragment : Fragment() {
                 binding.welcomeImg.visibility = View.VISIBLE
                 binding.welcomeImg.animate().rotationBy(-360f).setDuration(1000)
                     .setInterpolator(DecelerateInterpolator()).start()
-                authViewModel.isFirstOpen.set(true)
+                loginViewModel.isFirstOpen.set(true)
             }
+        }else{
+            binding.welcomeImg.visibility = View.VISIBLE
         }
 
     }
@@ -82,5 +111,9 @@ class LoginFragment : Fragment() {
     private fun openSignUpFragment() {
         findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment())
     }
+    private fun openHomeFragment() {
+        findNavController().navigate(LoginFragmentDirections.actionGlobalHomeList())
+    }
+
 
 }

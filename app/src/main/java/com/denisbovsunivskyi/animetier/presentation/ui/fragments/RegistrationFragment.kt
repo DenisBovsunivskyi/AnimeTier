@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.presentation.ui
+package com.denisbovsunivskyi.animetier.presentation.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.denisbovsunivskyi.animetier.R
+import com.denisbovsunivskyi.animetier.databinding.FragmentRegistrationBinding
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.RegisterActions
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.RegistrationViewModel
 import com.denisbovsunivskyi.animetier.presentation.utils.setErrorMsg
-import com.example.animetier.R
-import com.example.animetier.databinding.FragmentRegistrationBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,7 +35,7 @@ class RegistrationFragment : Fragment() {
     }
 
 
-     private fun initListeners() {
+    private fun initListeners() {
         with(binding) {
             registerBtn.setOnClickListener {
                 viewModel.register()
@@ -45,6 +45,7 @@ class RegistrationFragment : Fragment() {
             }
         }
     }
+
     private fun initClearFocusInputs() {
         binding.editEmail.setTargetForCleanFocus(binding.inputEmail)
         binding.editEmail.setNextTargetView(binding.editPassword)
@@ -53,7 +54,8 @@ class RegistrationFragment : Fragment() {
         binding.editConfirmPassword.setTargetForCleanFocus(binding.inputConfirmPassword)
 
     }
-     private fun initViewModels() {
+
+    private fun initViewModels() {
         viewModel.registrationState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is RegisterActions.Error.EmailIsNotCorrect -> {

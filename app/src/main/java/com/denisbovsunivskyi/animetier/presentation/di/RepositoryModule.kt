@@ -19,6 +19,6 @@ class RepositoryModule {
         authDataSource: AuthDataSource,
         userDataSource: UpdateUserDataSource
     ): AuthRepository {
-        return AuthRepositoryImpl(authDataSource,userDataSource)
+        return AuthRepositoryImpl(authDataSource, userDataSource)
     }
 }

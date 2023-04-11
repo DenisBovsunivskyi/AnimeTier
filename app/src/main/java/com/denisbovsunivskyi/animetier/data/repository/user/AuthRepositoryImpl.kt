@@ -5,7 +5,6 @@ import com.denisbovsunivskyi.animetier.data.datasource.user.UpdateUserDataSource
 import com.denisbovsunivskyi.animetier.data.models.user.FirebaseUser
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
 import com.denisbovsunivskyi.animetier.domain.repository.AuthRepository
-import kotlinx.coroutines.flow.Flow
 
 class AuthRepositoryImpl(
     private val authDataSource: AuthDataSource,
@@ -14,7 +13,7 @@ class AuthRepositoryImpl(
     override suspend fun authUserByEmail(
         email: String,
         password: String,
-    ): Flow<ResponseState<FirebaseUser, String>> {
+    ): ResponseState<String, String> {
         return authDataSource.authUserWithEmail(email, password)
     }
 

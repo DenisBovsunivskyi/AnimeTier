@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.animetier'
+    namespace 'com.denisbovsunivskyi.animetier'
     compileSdk 33
 
     defaultConfig {

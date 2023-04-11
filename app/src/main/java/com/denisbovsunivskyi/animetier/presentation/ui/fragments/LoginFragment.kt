@@ -10,23 +10,20 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.transition.Slide
 import androidx.transition.TransitionManager
 import com.denisbovsunivskyi.animetier.R
+import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.databinding.FragmentLoginBinding
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.AuthActions
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.LoginViewModel
+import com.denisbovsunivskyi.animetier.presentation.utils.clearError
 import com.denisbovsunivskyi.animetier.presentation.utils.colorizeEnd
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.denisbovsunivskyi.animetier.presentation.utils.setErrorMsg
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -48,28 +45,27 @@ class LoginFragment : Fragment() {
         initViews()
         initListeners()
         initViewModels()
-
+        observeValidation()
+        initClearFocusInputs()
     }
 
     private fun initViewModels() {
         binding.model = loginViewModel.signInModel
-       lifecycleScope.launch {
-           repeatOnLifecycle(Lifecycle.State.STARTED){
-               loginViewModel.loginStateFlow.collect{ state ->
-                   when (state) {
-                       is AuthActions.Success.LoginSuccess -> {
-                           openHomeFragment()
-                       }
-                       is AuthActions.Failed.LoginFailed -> {
-                           Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
-                       }
-                       else -> {}
-                   }
-               }
-           }
 
+
+        loginViewModel.getEventLiveData().observe(viewLifecycleOwner) { state ->
+            val event = state.contentIfNotHandled
+            when (event) {
+                is AuthActions.Success.LoginSuccess -> {
+                    openHomeFragment()
+
+                }
+                is AuthActions.Failed.LoginFailed -> {
+                    Toast.makeText(requireContext(), event.message, Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
         }
-
     }
 
 
@@ -80,7 +76,6 @@ class LoginFragment : Fragment() {
             }
             loginBtn.setOnClickListener {
                 loginViewModel.login()
-                    //openHomeFragment()
             }
         }
     }
@@ -102,15 +97,36 @@ class LoginFragment : Fragment() {
                     .setInterpolator(DecelerateInterpolator()).start()
                 loginViewModel.isFirstOpen.set(true)
             }
-        }else{
+        } else {
             binding.welcomeImg.visibility = View.VISIBLE
         }
 
     }
-
+    private fun observeValidation(){
+        loginViewModel.errorEmail.observe(viewLifecycleOwner){
+            if(it is UniversalText.Empty){
+                binding.inputEmail.clearError()
+            }else{
+                binding.inputEmail.setErrorMsg(it.asString(requireContext()))
+            }
+        }
+        loginViewModel.errorPassword.observe(viewLifecycleOwner){
+            if(it is UniversalText.Empty){
+                binding.inputPassword.clearError()
+            }else{
+                binding.inputPassword.setErrorMsg(it.asString(requireContext()))
+            }
+        }
+    }
+    private fun initClearFocusInputs() {
+        binding.editEmail.setTargetForCleanFocus(binding.inputEmail)
+        binding.editEmail.setNextTargetView(binding.editPassword)
+        binding.editPassword.setTargetForCleanFocus(binding.inputPassword)
+    }
     private fun openSignUpFragment() {
         findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment())
     }
+
     private fun openHomeFragment() {
         findNavController().navigate(LoginFragmentDirections.actionGlobalHomeList())
     }

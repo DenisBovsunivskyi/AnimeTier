@@ -20,11 +20,13 @@
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
             android:orientation="vertical">
-<androidx.appcompat.widget.AppCompatImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/ic_sign_up_image"
-    android:layout_gravity="center_horizontal"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_sign_up_image" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title"
                 style="@style/Text.H1"
@@ -42,11 +44,11 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_email"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                style="@style/TextInputLayout">
+                android:layout_marginTop="10dp">
 
                 <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
                     android:id="@+id/edit_email"
@@ -60,11 +62,11 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_password"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                style="@style/TextInputLayout">
+                android:layout_marginTop="10dp">
 
                 <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
                     android:id="@+id/edit_password"
@@ -78,11 +80,11 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_confirm_password"
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                style="@style/TextInputLayout">
+                android:layout_marginTop="10dp">
 
                 <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
                     android:id="@+id/edit_confirm_password"
@@ -111,9 +113,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="48dp"
+                android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/grey_dark"
                 android:enabled="false"
-                android:layout_marginBottom="20dp"
                 android:paddingVertical="10dp"
                 android:text="@string/text_continue"
                 android:textAppearance="@style/Text.H5.Light"

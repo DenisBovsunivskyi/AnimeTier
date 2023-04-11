@@ -6,6 +6,6 @@ import com.denisbovsunivskyi.animetier.domain.repository.AuthRepository
 
 class AuthUserUseCase(private val authRepository: AuthRepository) {
     suspend fun execute(email: String, password: String): ResponseState<String, String> {
-      return   authRepository.authUserByEmail(email, password)
+      return authRepository.authUserByEmail(email, password)
     }
 }

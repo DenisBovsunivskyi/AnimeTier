@@ -66,7 +66,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_number_label">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
                     android:id="@+id/edit_email"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
@@ -88,7 +88,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_number_label">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
                     android:id="@+id/edit_password"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"

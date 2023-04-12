@@ -4,6 +4,7 @@ import com.denisbovsunivskyi.animetier.domain.common.MailMatcher
 import com.denisbovsunivskyi.animetier.domain.repository.AuthRepository
 import com.denisbovsunivskyi.animetier.domain.usecase.auth.AuthUserUseCase
 import com.denisbovsunivskyi.animetier.domain.usecase.auth.RegisterUserUseCase
+import com.denisbovsunivskyi.animetier.domain.usecase.validation.ConfirmPasswordValidation
 import com.denisbovsunivskyi.animetier.domain.usecase.validation.EmailValidation
 import com.denisbovsunivskyi.animetier.domain.usecase.validation.PasswordValidation
 import dagger.Module
@@ -37,5 +38,10 @@ class UseCaseModule {
     @Singleton
     fun provideValidatePasswordUseCase(): PasswordValidation {
         return PasswordValidation()
+    }
+    @Provides
+    @Singleton
+    fun provideValidateConfirmPasswordUseCase(): ConfirmPasswordValidation {
+        return ConfirmPasswordValidation()
     }
 }

@@ -17,7 +17,6 @@ class UpdateUserDataSourceImpl @Inject constructor(
         val document = user.userId?.let {
             firebaseFirestore.collection(FireStoreCollection.USER).document(it)
         }
-        println("I'm working in thread ${Thread.currentThread().name}")
         var result: ResponseState<FirebaseUser, String> = ResponseState.Success(user)
         document
             ?.set(user)

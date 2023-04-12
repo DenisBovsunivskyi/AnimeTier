@@ -1,44 +1,36 @@
 package com.denisbovsunivskyi.animetier.presentation.ui.fragments
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.denisbovsunivskyi.animetier.R
+import androidx.navigation.fragment.findNavController
+import com.denisbovsunivskyi.animetier.core.fragment.BaseBindingFragment
+import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.databinding.FragmentRegistrationBinding
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.RegisterActions
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.RegistrationViewModel
+import com.denisbovsunivskyi.animetier.presentation.utils.clearError
 import com.denisbovsunivskyi.animetier.presentation.utils.setErrorMsg
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RegistrationFragment : Fragment() {
-    private lateinit var binding: FragmentRegistrationBinding
-    private val viewModel by activityViewModels<RegistrationViewModel>()
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_registration, container, false)
-    }
+class RegistrationFragment : BaseBindingFragment<FragmentRegistrationBinding>() {
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRegistrationBinding
+        get() = FragmentRegistrationBinding::inflate
+    private val registrationViewModel by activityViewModels<RegistrationViewModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentRegistrationBinding.bind(view)
-        viewModel.clearModel()
-        initListeners()
-        initViewModels()
+    override fun init() {
+        registrationViewModel.clearModel()
         initClearFocusInputs()
+        observeValidation()
     }
 
 
-    private fun initListeners() {
+    override fun initListeners() {
         with(binding) {
             registerBtn.setOnClickListener {
-                viewModel.register()
+                registrationViewModel.register()
             }
             textHaveAccountBtn.setOnClickListener {
                 activity?.onBackPressedDispatcher?.onBackPressed()
@@ -55,27 +47,54 @@ class RegistrationFragment : Fragment() {
 
     }
 
-    private fun initViewModels() {
-        viewModel.registrationState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is RegisterActions.Error.EmailIsNotCorrect -> {
-                    binding.inputEmail.setErrorMsg(state.message)
-                }
-                is RegisterActions.Error.PasswordIsToShort -> {
-                    binding.inputPassword.setErrorMsg(state.message)
-                }
-                is RegisterActions.Error.PasswordsNotMatch -> {
-                    binding.inputPassword.setErrorMsg(state.message)
-                    binding.inputConfirmPassword.setErrorMsg(state.message)
-                }
-                is RegisterActions.Success.FirstStepSuccess -> {
-                    //todo
-                }
-                is RegisterActions.Loading -> {
-
+    override fun initViewModels() {
+        binding.model = registrationViewModel.signUpModel
+        registrationViewModel.getEventLiveData().observe(viewLifecycleOwner) { state ->
+            val event = state.contentIfNotHandled
+            event?.let {
+                when (event) {
+                    is RegisterActions.Success.RegistrationSuccess -> {
+                        binding.registerBtn.isEnabled = true
+                        openHomeFragment()
+                    }
+                    is RegisterActions.Failed.RegistrationFailed -> {
+                        binding.registerBtn.isEnabled = true
+                        Toast.makeText(requireContext(), event.message, Toast.LENGTH_SHORT).show()
+                    }
+                    is RegisterActions.Loading -> {
+                        binding.registerBtn.isEnabled = false
+                    }
                 }
             }
         }
+    }
+
+    private fun observeValidation() {
+        registrationViewModel.errorEmail.observe(viewLifecycleOwner) {
+            if (it is UniversalText.Empty) {
+                binding.inputEmail.clearError()
+            } else {
+                binding.inputEmail.setErrorMsg(it.asString(requireContext()))
+            }
+        }
+        registrationViewModel.errorPassword.observe(viewLifecycleOwner) {
+            if (it is UniversalText.Empty) {
+                binding.inputPassword.clearError()
+            } else {
+                binding.inputPassword.setErrorMsg(it.asString(requireContext()))
+            }
+        }
+        registrationViewModel.errorConfirmPassword.observe(viewLifecycleOwner) {
+            if (it is UniversalText.Empty) {
+                binding.inputConfirmPassword.clearError()
+            } else {
+                binding.inputConfirmPassword.setErrorMsg(it.asString(requireContext()))
+            }
+        }
+    }
+
+    private fun openHomeFragment() {
+        findNavController().navigate(LoginFragmentDirections.actionGlobalHomeList())
     }
 
 }

@@ -56,6 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/text_email"
+                    android:imeOptions="actionNext"
                     android:inputType="textEmailAddress|textNoSuggestions"
                     android:text="@={model.email}" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -66,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
+                app:passwordToggleEnabled="true"
                 android:layout_marginTop="10dp">
 
                 <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
@@ -74,6 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/text_password"
+                    android:imeOptions="actionNext"
                     android:inputType="textPassword"
                     android:text="@={model.password}" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -84,6 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
+                app:passwordToggleEnabled="true"
                 android:layout_marginTop="10dp">
 
                 <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
@@ -109,16 +113,16 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/register_btn"
+                android:textAppearance="@style/Text.H5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="48dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="@color/grey_dark"
-                android:enabled="false"
+                android:backgroundTint="@color/selector_background_btn_color"
+                android:textColor="@color/selector_text_btn_color"
                 android:paddingVertical="10dp"
                 android:text="@string/text_continue"
-                android:textAppearance="@style/Text.H5.Light"
                 app:cornerRadius="20dp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>

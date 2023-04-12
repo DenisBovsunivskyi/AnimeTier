@@ -1,6 +1,5 @@
 package com.denisbovsunivskyi.animetier.data.datasource.user
 
-import com.denisbovsunivskyi.animetier.data.models.user.FirebaseUser
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
 
 interface AuthDataSource {
@@ -10,6 +9,7 @@ interface AuthDataSource {
     ): ResponseState<String, String>
 
     suspend fun registerUserWithEmail(
-        user: FirebaseUser,
-    ): ResponseState<FirebaseUser, String>
+        email: String,
+        password: String
+    ): ResponseState<String, String>
 }

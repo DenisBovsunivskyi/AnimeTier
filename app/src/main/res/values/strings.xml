@@ -6,6 +6,7 @@
     <string name="error_email_cannot_be_blank">Email can\'t be blank</string>
     <string name="error_email_pattern_not_match">Email is not valid</string>
     <string name="error_password_too_short">Password should contains at least %d characters</string>
+    <string name="error_confirm_password_not_match">Passwords do not match. Please try again.</string>
 
     <string name="text_welcome">Welcome</string>
     <string name="text_sign_up_to_start">Sign up to start</string>

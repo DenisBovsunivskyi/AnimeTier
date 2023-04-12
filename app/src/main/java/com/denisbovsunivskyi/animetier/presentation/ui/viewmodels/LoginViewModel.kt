@@ -40,7 +40,6 @@ class LoginViewModel @Inject constructor(
 
 
     fun login() {
-        clearErrorMessages()
         if (!validateCredentials()) {
             viewModelScope.launch(Dispatchers.IO) {
                 mAuthEventLiveData.postValue(Event(AuthActions.Loading))
@@ -61,6 +60,7 @@ class LoginViewModel @Inject constructor(
 
 
     private fun validateCredentials(): Boolean {
+        clearErrorMessages()
         val emailResult = emailValidation.execute(signInModel.email.get() ?: "")
         val passwordResult = passwordValidation.execute(signInModel.password.get() ?: "")
 

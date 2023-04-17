@@ -74,6 +74,7 @@ class RegistrationViewModel @Inject constructor(
             passwordResult,
             passwordConfirmResult
         ).any { it.errorMessage != null }
+
         if (hasError) {
             errorEmail.postValue(emailResult.errorMessage ?: UniversalText.Empty)
             errorPassword.postValue(passwordResult.errorMessage ?: UniversalText.Empty)

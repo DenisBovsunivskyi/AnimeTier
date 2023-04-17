@@ -1,8 +1,11 @@
 package com.denisbovsunivskyi.animetier.presentation.di
 
 import com.denisbovsunivskyi.animetier.data.datasource.user.AuthDataSource
+import com.denisbovsunivskyi.animetier.data.datasource.user.UserProfileDataSource
 import com.denisbovsunivskyi.animetier.data.repository.user.AuthRepositoryImpl
+import com.denisbovsunivskyi.animetier.data.repository.user.ProfileRepositoryImpl
 import com.denisbovsunivskyi.animetier.domain.repository.AuthRepository
+import com.denisbovsunivskyi.animetier.domain.repository.ProfileRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,5 +21,13 @@ class RepositoryModule {
         authDataSource: AuthDataSource,
     ): AuthRepository {
         return AuthRepositoryImpl(authDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun provideProfileRepository(
+        profileDataSource: UserProfileDataSource,
+    ): ProfileRepository {
+        return ProfileRepositoryImpl(profileDataSource)
     }
 }

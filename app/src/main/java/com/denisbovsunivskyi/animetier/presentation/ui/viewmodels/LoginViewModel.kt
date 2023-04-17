@@ -14,7 +14,6 @@ import com.denisbovsunivskyi.animetier.domain.usecase.validation.PasswordValidat
 import com.denisbovsunivskyi.animetier.presentation.model.auth.SignInModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -46,7 +45,6 @@ class LoginViewModel @Inject constructor(
                 val email = signInModel.email.get() ?: ""
                 val password = signInModel.password.get() ?: ""
                 val result = authUserUseCase.execute(email, password)
-                delay(5000)
 
                 when (result) {
                     is ResponseState.Success -> mAuthEventLiveData.postValue(Event(AuthActions.Success.LoginSuccess))

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.denisbovsunivskyi.animetier">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name="com.denisbovsunivskyi.AnimeTierApp"
         android:allowBackup="true"
@@ -25,6 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
+
     </application>
 
 </manifest>

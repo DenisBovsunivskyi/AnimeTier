@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.presentation.ui.fragments
+package com.denisbovsunivskyi.animetier.presentation.ui.fragments.auth
 
 import android.view.Gravity
 import android.view.LayoutInflater

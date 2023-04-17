@@ -80,6 +80,7 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.15.0'
     kapt 'com.github.bumptech.glide:compiler:4.15.0'
+
     //room
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
@@ -95,4 +96,6 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
     implementation "com.andkulikov:transitionseverywhere:2.1.0"
 
+    //Image cropper
+    implementation("com.vanniktech:android-image-cropper:4.5.0")
 }

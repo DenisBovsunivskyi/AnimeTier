@@ -3,8 +3,8 @@ package com.denisbovsunivskyi.animetier.presentation.di
 import android.content.Context
 import com.denisbovsunivskyi.animetier.data.datasource.user.AuthDataSource
 import com.denisbovsunivskyi.animetier.data.datasource.user.AuthDataSourceImpl
-import com.denisbovsunivskyi.animetier.data.datasource.user.UpdateUserDataSource
-import com.denisbovsunivskyi.animetier.data.datasource.user.UpdateUserDataSourceImpl
+import com.denisbovsunivskyi.animetier.data.datasource.user.UserProfileDataSource
+import com.denisbovsunivskyi.animetier.data.datasource.user.UserProfileDataSourceImpl
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -30,7 +30,7 @@ class DataSourceModule {
 
     @Provides
     @Singleton
-    fun provideUpdateUserDataSource(firebaseFirestore: FirebaseFirestore): UpdateUserDataSource {
-        return UpdateUserDataSourceImpl(firebaseFirestore)
+    fun provideUpdateUserDataSource(firebaseFirestore: FirebaseFirestore): UserProfileDataSource {
+        return UserProfileDataSourceImpl(firebaseFirestore)
     }
 }

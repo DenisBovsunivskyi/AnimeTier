@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.presentation.ui.fragments
+package com.denisbovsunivskyi.animetier.presentation.ui.fragments.auth
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -55,7 +55,7 @@ class RegistrationFragment : BaseBindingFragment<FragmentRegistrationBinding>() 
                 when (event) {
                     is RegisterActions.Success.RegistrationSuccess -> {
                         binding.registerBtn.isEnabled = true
-                        openHomeFragment()
+                        openRegistrationProfile()
                     }
                     is RegisterActions.Failed.RegistrationFailed -> {
                         binding.registerBtn.isEnabled = true
@@ -93,8 +93,8 @@ class RegistrationFragment : BaseBindingFragment<FragmentRegistrationBinding>() 
         }
     }
 
-    private fun openHomeFragment() {
-        findNavController().navigate(LoginFragmentDirections.actionGlobalHomeList())
+    private fun openRegistrationProfile() {
+        findNavController().navigate(RegistrationFragmentDirections.actionRegistrationFragmentToRegistrationProfileInfoFragment())
     }
 
 }

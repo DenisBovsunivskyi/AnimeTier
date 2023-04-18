@@ -1,11 +1,11 @@
 package com.denisbovsunivskyi.animetier.data.models.user
 
-import java.io.File
+import android.net.Uri
 
 data class UserProfileModelDto(
-    var userId: String?=null,
+    var userId: String,
     val nickName: String,
     val email: String,
-    val about:String,
-    val photo:File?
+    val about: String,
+    val photo: Uri?
 )

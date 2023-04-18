@@ -6,5 +6,5 @@ import com.denisbovsunivskyi.animetier.data.models.user.UserProfileModelDto
 
 
 interface ProfileRepository {
-    suspend fun createUserWhileRegister(model:UserProfileModelDto): ResponseState<UserInfo, String>
+    suspend fun createUserInRemoteDb(model:UserProfileModelDto): ResponseState<UserInfo, String>
 }

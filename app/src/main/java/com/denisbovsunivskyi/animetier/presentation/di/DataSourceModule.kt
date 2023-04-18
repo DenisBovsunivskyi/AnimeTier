@@ -8,6 +8,7 @@ import com.denisbovsunivskyi.animetier.data.datasource.user.UserProfileDataSourc
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,7 +31,7 @@ class DataSourceModule {
 
     @Provides
     @Singleton
-    fun provideUpdateUserDataSource(firebaseFirestore: FirebaseFirestore): UserProfileDataSource {
-        return UserProfileDataSourceImpl(firebaseFirestore)
+    fun provideUpdateUserDataSource(firebaseFirestore: FirebaseFirestore,storageReference: StorageReference): UserProfileDataSource {
+        return UserProfileDataSourceImpl(firebaseFirestore,storageReference)
     }
 }

@@ -45,13 +45,41 @@
         <item name="errorTextColor">@color/black</item>
         <item name="errorIconTint">@color/black</item>
     </style>
-
+    <style name="TextInputLayoutMultiline" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="colorPrimary">@color/grey</item>
+        <item name="colorOnSurface">@color/grey</item>
+        <item name="boxStrokeColor">@color/grey</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="startIconTint">@color/black</item>
+        <item name="hintEnabled">true</item>
+        <item name="android:fontFamily">@font/ubuntu_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:focusable">true</item>
+        <item name="errorTextColor">@color/black</item>
+        <item name="errorIconTint">@color/black</item>
+    </style>
     <style name="TextAppearance.Hint" parent="TextAppearance.Design.Hint">
         <item name="hintTextColor">@color/white</item>
         <item name="android:textColorHint">@color/white</item>
     </style>
 
     <style name="TextInputEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:maxLength">50</item>
+        <item name="android:fontFamily">@font/ubuntu_regular</item>
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+    <style name="TextInputMultilineEditText" parent="Widget.Material3.TextInputEditText.OutlinedBox">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

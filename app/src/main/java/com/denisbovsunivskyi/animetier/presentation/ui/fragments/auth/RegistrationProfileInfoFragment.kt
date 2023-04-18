@@ -4,31 +4,40 @@ import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
 import com.denisbovsunivskyi.animetier.core.fragment.BaseBindingFragment
 import com.denisbovsunivskyi.animetier.databinding.FragmentRegistrationProfileInfoBinding
+import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.RegistrationProfileViewModel
 import com.denisbovsunivskyi.animetier.presentation.utils.clearFiles
 import com.denisbovsunivskyi.animetier.presentation.utils.constatns.CROP_FILE_NAME_DIR
 import com.denisbovsunivskyi.animetier.presentation.utils.constatns.ERROR_TAG
 import com.denisbovsunivskyi.animetier.presentation.utils.extentions.loadNewImageFromUri
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
-
+@AndroidEntryPoint
 class RegistrationProfileInfoFragment :
     BaseBindingFragment<FragmentRegistrationProfileInfoBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRegistrationProfileInfoBinding
         get() = FragmentRegistrationProfileInfoBinding::inflate
-
+    private val registrationProfileViewModel by viewModels<RegistrationProfileViewModel>()
     override fun init() {
 
     }
 
+    override fun initViewModels() {
+        binding.model = registrationProfileViewModel.registrationProfileModel
+    }
     override fun initListeners() {
         binding.profileImage.setOnClickListener {
             startLoadImage()
+        }
+        binding.registerBtn.setOnClickListener {
+            registrationProfileViewModel.createNewUser()
         }
     }
 
@@ -47,6 +56,7 @@ class RegistrationProfileInfoFragment :
 
     private fun handleCropResult(uriContent: Uri) {
         val fileTemp = File(activity?.cacheDir, CROP_FILE_NAME_DIR)
+        registrationProfileViewModel.registrationProfileModel.photo = uriContent
         binding.profileImage.loadNewImageFromUri(uriContent)
     }
 

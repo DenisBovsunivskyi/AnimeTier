@@ -10,7 +10,7 @@ class ProfileRepositoryImpl(
     private val userProfileDataSource: UserProfileDataSource
 ) : ProfileRepository {
 
-    override suspend fun createUserWhileRegister(model: UserProfileModelDto): ResponseState<UserInfo, String> {
+    override suspend fun createUserInRemoteDb(model: UserProfileModelDto): ResponseState<UserInfo, String> {
           return userProfileDataSource.createUserWhileRegister(model)
     }
 }

@@ -1,9 +1,6 @@
-package com.denisbovsunivskyi.animetier.presentation.di
+package com.denisbovsunivskyi.animetier.presentation.di.use_case
 
 import com.denisbovsunivskyi.animetier.domain.common.MailMatcher
-import com.denisbovsunivskyi.animetier.domain.repository.AuthRepository
-import com.denisbovsunivskyi.animetier.domain.usecase.auth.AuthUserUseCase
-import com.denisbovsunivskyi.animetier.domain.usecase.auth.RegisterUserUseCase
 import com.denisbovsunivskyi.animetier.domain.usecase.validation.ConfirmPasswordValidation
 import com.denisbovsunivskyi.animetier.domain.usecase.validation.EmailValidation
 import com.denisbovsunivskyi.animetier.domain.usecase.validation.PasswordValidation
@@ -15,19 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class UseCaseModule {
-    @Provides
-    @Singleton
-    fun provideAuthUseCase(authRepository: AuthRepository): AuthUserUseCase {
-        return AuthUserUseCase(authRepository)
-    }
-
-    @Provides
-    @Singleton
-    fun provideRegisterUseCase(authRepository: AuthRepository): RegisterUserUseCase {
-        return RegisterUserUseCase(authRepository)
-    }
-
+class ValidationUseCaseModule {
     @Provides
     @Singleton
     fun provideValidateEmailUseCase(mailMatcher: MailMatcher): EmailValidation {
@@ -39,6 +24,7 @@ class UseCaseModule {
     fun provideValidatePasswordUseCase(): PasswordValidation {
         return PasswordValidation()
     }
+
     @Provides
     @Singleton
     fun provideValidateConfirmPasswordUseCase(): ConfirmPasswordValidation {

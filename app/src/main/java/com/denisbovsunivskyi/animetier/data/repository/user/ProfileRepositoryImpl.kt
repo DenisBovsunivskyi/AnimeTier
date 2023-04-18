@@ -1,5 +1,6 @@
 package com.denisbovsunivskyi.animetier.data.repository.user
 
+import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.data.datasource.user.UserProfileDataSource
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
 import com.denisbovsunivskyi.animetier.presentation.model.user.UserInfo
@@ -10,7 +11,7 @@ class ProfileRepositoryImpl(
     private val userProfileDataSource: UserProfileDataSource
 ) : ProfileRepository {
 
-    override suspend fun createUserInRemoteDb(model: UserProfileModelDto): ResponseState<UserInfo, String> {
+    override suspend fun createUserInRemoteDb(model: UserProfileModelDto): ResponseState<UserInfo, UniversalText> {
           return userProfileDataSource.createUserWhileRegister(model)
     }
 }

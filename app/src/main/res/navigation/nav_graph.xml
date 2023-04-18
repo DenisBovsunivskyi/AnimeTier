@@ -61,5 +61,13 @@
         android:id="@+id/registrationProfileInfoFragment"
         android:name="com.denisbovsunivskyi.animetier.presentation.ui.fragments.auth.RegistrationProfileInfoFragment"
         android:label="fragment_registration_profile_info"
-        tools:layout="@layout/fragment_registration_profile_info" />
+        tools:layout="@layout/fragment_registration_profile_info" >
+        <action
+            android:id="@+id/action_registrationProfileInfoFragment_to_homeList"
+            app:destination="@id/homeList"
+            app:enterAnim="@anim/slide_in_anim"
+            app:popExitAnim="@anim/slide_out_anim"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

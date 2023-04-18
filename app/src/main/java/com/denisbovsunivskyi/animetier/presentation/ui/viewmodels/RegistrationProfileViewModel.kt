@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.denisbovsunivskyi.animetier.R
 import com.denisbovsunivskyi.animetier.core.Event
+import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
 import com.denisbovsunivskyi.animetier.data.models.user.UserProfileModelDto
 import com.denisbovsunivskyi.animetier.domain.usecase.auth.CreateUserInRemoteDbUseCase
@@ -23,8 +25,8 @@ class RegistrationProfileViewModel @Inject constructor(
 ) :
     ViewModel() {
     var registrationProfileModel: ProfileRegistrationModel = ProfileRegistrationModel()
-    var userEmail: String = ""
-    var userId: String = ""
+    private var userEmail: String = ""
+    private var userId: String = ""
 
     private val mRegistrationProfileEventLiveData: MutableLiveData<Event<RegistrationProfileActions>> =
         MutableLiveData<Event<RegistrationProfileActions>>()
@@ -37,44 +39,45 @@ class RegistrationProfileViewModel @Inject constructor(
     init {
         userEmail = Firebase.auth.currentUser?.email.toString()
         userId = Firebase.auth.currentUser?.uid.toString()
+        if (userId.isEmpty() || userEmail.isEmpty()) {
+            mRegistrationProfileEventLiveData.postValue(
+                Event(RegistrationProfileActions.Failed.NoUserCredentialsAvailable())
+            )
+        }
     }
 
-    fun createNewUser() {
-        if (validateCredentials()) {
-            viewModelScope.launch(Dispatchers.IO) {
-                mRegistrationProfileEventLiveData.postValue(Event(RegistrationProfileActions.Loading))
-                val result = createUserInRemoteDbUseCase.execute(
-                    UserProfileModelDto(
-                        userId = userId,
-                        nickName = registrationProfileModel.nickname.get() ?: "",
-                        email = userEmail,
-                        about = registrationProfileModel.about.get() ?: "",
-                        photo = registrationProfileModel.photo
+    private fun createNewUser() {
+        viewModelScope.launch(Dispatchers.IO) {
+            mRegistrationProfileEventLiveData.postValue(Event(RegistrationProfileActions.Loading))
+            val result = createUserInRemoteDbUseCase.execute(
+                UserProfileModelDto(
+                    userId = userId,
+                    nickName = registrationProfileModel.nickname.get() ?: "",
+                    email = userEmail,
+                    about = registrationProfileModel.about.get() ?: "",
+                    photo = registrationProfileModel.photo
+                )
+            )
+
+            when (result) {
+                is ResponseState.Success -> mRegistrationProfileEventLiveData.postValue(
+                    Event(
+                        RegistrationProfileActions.Success.RegistrationSuccess
                     )
                 )
-
-                when (result) {
-                    is ResponseState.Success -> mRegistrationProfileEventLiveData.postValue(
-                        Event(
-                            RegistrationProfileActions.Success.RegistrationSuccess
-                        )
-                    )
-                    is ResponseState.Error -> mRegistrationProfileEventLiveData.postValue(
-                        Event(RegistrationProfileActions.Failed.RegistrationFailed(result.rawResponse))
-                    )
-                }
+                is ResponseState.Error -> mRegistrationProfileEventLiveData.postValue(
+                    Event(RegistrationProfileActions.Failed.RegistrationFailed(result.rawResponse))
+                )
             }
         }
     }
 
-
-    private fun validateCredentials(): Boolean {
-        println(userId)
-        return !(userId.isEmpty() || userId.isBlank())
-    }
-
-
-    fun clearModel() {
+    fun validateFields() {
+        if (registrationProfileModel.nickname.get()?.isNotEmpty() == true) {
+            createNewUser()
+        } else {
+            mRegistrationProfileEventLiveData.postValue(Event(RegistrationProfileActions.Failed.NickNameIsEmpty()))
+        }
     }
 }
 
@@ -85,6 +88,11 @@ sealed class RegistrationProfileActions {
     }
 
     sealed class Failed : RegistrationProfileActions() {
-        data class RegistrationFailed(val message: String) : RegistrationProfileActions()
+        data class RegistrationFailed(val message: UniversalText) : RegistrationProfileActions()
+        data class NoUserCredentialsAvailable(val message: UniversalText = UniversalText.Resource(R.string.error_user_is_unauthorized)) :
+            RegistrationProfileActions()
+
+        data class NickNameIsEmpty(val message: UniversalText = UniversalText.Resource(R.string.error_nick_name_is_empty)) :
+            RegistrationProfileActions()
     }
 }

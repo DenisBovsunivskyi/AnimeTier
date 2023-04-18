@@ -4,20 +4,21 @@ import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
 import com.denisbovsunivskyi.animetier.core.fragment.BaseBindingFragment
 import com.denisbovsunivskyi.animetier.databinding.FragmentRegistrationProfileInfoBinding
+import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.RegistrationProfileActions
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.RegistrationProfileViewModel
 import com.denisbovsunivskyi.animetier.presentation.utils.clearFiles
-import com.denisbovsunivskyi.animetier.presentation.utils.constatns.CROP_FILE_NAME_DIR
 import com.denisbovsunivskyi.animetier.presentation.utils.constatns.ERROR_TAG
 import com.denisbovsunivskyi.animetier.presentation.utils.extentions.loadNewImageFromUri
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
 
 @AndroidEntryPoint
 class RegistrationProfileInfoFragment :
@@ -26,18 +27,47 @@ class RegistrationProfileInfoFragment :
         get() = FragmentRegistrationProfileInfoBinding::inflate
     private val registrationProfileViewModel by viewModels<RegistrationProfileViewModel>()
     override fun init() {
-
+        initClearFocusInputs()
     }
 
     override fun initViewModels() {
         binding.model = registrationProfileViewModel.registrationProfileModel
+        registrationProfileViewModel.getEventLiveData().observe(viewLifecycleOwner) { state ->
+            val event = state.contentIfNotHandled
+            event?.let {
+                binding.registerBtn.isEnabled = true
+                when (event) {
+                    is RegistrationProfileActions.Success.RegistrationSuccess -> {
+                        openHomeScreen()
+                    }
+                    is RegistrationProfileActions.Failed.RegistrationFailed ->{
+                        context?.let {
+                            Toast.makeText(it, event.message.asString(it), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    is RegistrationProfileActions.Failed.NoUserCredentialsAvailable -> {
+                        context?.let {
+                            Toast.makeText(it, event.message.asString(it), Toast.LENGTH_SHORT).show()
+                            openAuthScreen()
+                        }
+                    }
+                    is RegistrationProfileActions.Failed.NickNameIsEmpty ->{
+                        context?.let {
+                            Toast.makeText(it, event.message.asString(it), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    is RegistrationProfileActions.Loading ->{
+                    }
+                }
+            }
+        }
     }
     override fun initListeners() {
         binding.profileImage.setOnClickListener {
             startLoadImage()
         }
         binding.registerBtn.setOnClickListener {
-            registrationProfileViewModel.createNewUser()
+            registrationProfileViewModel.validateFields()
         }
     }
 
@@ -55,7 +85,6 @@ class RegistrationProfileInfoFragment :
     }
 
     private fun handleCropResult(uriContent: Uri) {
-        val fileTemp = File(activity?.cacheDir, CROP_FILE_NAME_DIR)
         registrationProfileViewModel.registrationProfileModel.photo = uriContent
         binding.profileImage.loadNewImageFromUri(uriContent)
     }
@@ -75,5 +104,17 @@ class RegistrationProfileInfoFragment :
         cropImage.launch(
             cropImageContractOptions
         )
+    }
+    private fun initClearFocusInputs() {
+        binding.editNickName.setTargetForCleanFocus(binding.inputNickName)
+        binding.editNickName.setNextTargetView(binding.editAbout)
+        binding.editAbout.setTargetForCleanFocus(binding.inputAbout)
+
+    }
+    private fun openAuthScreen() {
+        findNavController().navigate(RegistrationProfileInfoFragmentDirections.actionGlobalAuth())
+    }
+    private fun openHomeScreen(){
+        findNavController().navigate(RegistrationProfileInfoFragmentDirections.actionRegistrationProfileInfoFragmentToHomeList())
     }
 }

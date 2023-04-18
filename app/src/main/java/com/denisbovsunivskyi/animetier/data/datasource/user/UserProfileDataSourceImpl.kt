@@ -1,10 +1,14 @@
 package com.denisbovsunivskyi.animetier.data.datasource.user
 
 import android.net.Uri
+import android.util.Log
+import com.denisbovsunivskyi.animetier.R
+import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
 import com.denisbovsunivskyi.animetier.data.models.user.UserProfileModelDto
 import com.denisbovsunivskyi.animetier.data.util.FireStoreCollection
 import com.denisbovsunivskyi.animetier.presentation.model.user.UserInfo
+import com.denisbovsunivskyi.animetier.presentation.utils.constatns.ERROR_TAG
 import com.denisbovsunivskyi.animetier.presentation.utils.constatns.STORAGE_PROFILE_IMAGE_FILENAME
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
@@ -18,7 +22,7 @@ class UserProfileDataSourceImpl @Inject constructor(
 ) : UserProfileDataSource {
     override suspend fun createUserWhileRegister(
         user: UserProfileModelDto
-    ): ResponseState<UserInfo, String> {
+    ): ResponseState<UserInfo, UniversalText> {
         var profilePhotoUrl = ""
         if (user.photo != null) {
             when (val result = uploadProfilePhoto(user.userId,user.photo)) {
@@ -26,7 +30,7 @@ class UserProfileDataSourceImpl @Inject constructor(
                     profilePhotoUrl = result.data
                 }
                 is ResponseState.Error -> {
-                    return ResponseState.Error(result.rawResponse)
+                    return ResponseState.Error(UniversalText.Resource(R.string.error_failed_to_upload_photo))
                 }
             }
         }
@@ -38,7 +42,7 @@ class UserProfileDataSourceImpl @Inject constructor(
             user.about,
             profilePhotoUrl
         )
-        var result: ResponseState<UserInfo, String> =
+        var result: ResponseState<UserInfo, UniversalText> =
             ResponseState.Success(
                 userInfo
             )
@@ -48,7 +52,8 @@ class UserProfileDataSourceImpl @Inject constructor(
                 result = ResponseState.Success(userInfo)
             }
             .addOnFailureListener {
-                result = ResponseState.Error(it.localizedMessage?.toString() ?: "Error")
+                result = ResponseState.Error((UniversalText.Resource(R.string.error_something_went_wrong)))
+                Log.i(ERROR_TAG, it.message.toString())
             }.await()
         return result
     }

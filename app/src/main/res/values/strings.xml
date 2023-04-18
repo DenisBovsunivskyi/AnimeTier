@@ -7,6 +7,9 @@
     <string name="error_email_pattern_not_match">Email is not valid</string>
     <string name="error_password_too_short">Password should contains at least %d characters</string>
     <string name="error_confirm_password_not_match">Passwords do not match. Please try again.</string>
+    <string name="error_user_is_unauthorized">User is unauthorized</string>
+    <string name="error_nick_name_is_empty">Please enter your nickname</string>
+    <string name="error_failed_to_upload_photo">Failed to upload your photo. Please try again</string>
 
     <string name="text_welcome">Welcome</string>
     <string name="text_sign_up_to_start">Sign up to start</string>
@@ -25,5 +28,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_fill_your_profile">Fill your profile</string>
 
 </resources>

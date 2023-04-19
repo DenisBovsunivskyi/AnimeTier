@@ -11,7 +11,9 @@ fun View.showView() {
 fun View.hideView() {
     visibility = View.INVISIBLE
 }
-
+fun View.goneView() {
+    visibility = View.GONE
+}
 fun View.showKeyboard(context: Context) {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)

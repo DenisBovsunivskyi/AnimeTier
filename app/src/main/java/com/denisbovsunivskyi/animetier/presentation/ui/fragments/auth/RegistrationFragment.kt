@@ -8,8 +8,8 @@ import androidx.navigation.fragment.findNavController
 import com.denisbovsunivskyi.animetier.core.fragment.BaseBindingFragment
 import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.databinding.FragmentRegistrationBinding
-import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.RegisterActions
-import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.RegistrationViewModel
+import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.auth.RegisterActions
+import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.auth.RegistrationViewModel
 import com.denisbovsunivskyi.animetier.presentation.utils.clearError
 import com.denisbovsunivskyi.animetier.presentation.utils.setErrorMsg
 import dagger.hilt.android.AndroidEntryPoint

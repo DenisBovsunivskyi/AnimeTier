@@ -8,7 +8,9 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.transition.Slide
 import androidx.transition.TransitionManager
@@ -16,14 +18,15 @@ import com.denisbovsunivskyi.animetier.R
 import com.denisbovsunivskyi.animetier.core.fragment.BaseBindingFragment
 import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.databinding.FragmentLoginBinding
-import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.AuthActions
-import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.LoginViewModel
+import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.auth.AuthActions
+import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.auth.LoginViewModel
 import com.denisbovsunivskyi.animetier.presentation.utils.clearError
 import com.denisbovsunivskyi.animetier.presentation.utils.colorizeEnd
 import com.denisbovsunivskyi.animetier.presentation.utils.setErrorMsg
 import com.denisbovsunivskyi.animetier.presentation.utils.showView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -50,10 +53,12 @@ class LoginFragment : BaseBindingFragment<FragmentLoginBinding>() {
                         binding.loginBtn.isEnabled = true
                         openHomeFragment()
                     }
+
                     is AuthActions.Failed.LoginFailed -> {
                         binding.loginBtn.isEnabled = true
                         Toast.makeText(requireContext(), event.message, Toast.LENGTH_SHORT).show()
                     }
+
                     is AuthActions.Loading -> {
                         binding.loginBtn.isEnabled = false
                     }
@@ -68,21 +73,24 @@ class LoginFragment : BaseBindingFragment<FragmentLoginBinding>() {
             getString(R.string.text_sign_up),
             getColor(requireContext(), R.color.grey_dark)
         )
-        if (!loginViewModel.isFirstOpen.get()) {
-            viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-                delay(100L)
-                val transition = Slide(Gravity.END)
-                transition.duration = 1000L
-                TransitionManager.beginDelayedTransition(binding.rootLayout, transition)
-                binding.welcomeImg.visibility = View.VISIBLE
-                binding.welcomeImg.animate().rotationBy(-360f).setDuration(1000)
-                    .setInterpolator(DecelerateInterpolator()).start()
-                loginViewModel.isFirstOpen.set(true)
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                if (!loginViewModel.isFirstOpen.get()) {
+                    delay(100L)
+                    val transition = Slide(Gravity.END)
+                    transition.duration = 1000L
+                    TransitionManager.beginDelayedTransition(binding.rootLayout, transition)
+                    binding.welcomeImg.visibility = View.VISIBLE
+                    binding.welcomeImg.animate().rotationBy(-360f).setDuration(1000)
+                        .setInterpolator(DecelerateInterpolator()).start()
+                    loginViewModel.isFirstOpen.set(true)
+                } else {
+                    binding.welcomeImg.showView()
+                }
             }
-        } else {
-            binding.welcomeImg.showView()
         }
     }
+
 
     override fun initListeners() {
         with(binding) {

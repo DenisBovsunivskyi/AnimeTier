@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.presentation.ui.viewmodels
+package com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.auth
 
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData

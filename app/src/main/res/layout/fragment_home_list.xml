@@ -8,6 +8,33 @@
         android:layout_height="match_parent"
         tools:context=".presentation.ui.fragments.HomeList">
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/trending_anime_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/text_trending_anime"
+            android:textAppearance="@style/Text.H3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trending_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingStart="32dp"
+            android:paddingEnd="16dp"
+            android:clipToPadding = "false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/trending_anime_title"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_horizontal_anime" />
+
         <Button
             android:id="@+id/logout"
             android:layout_width="wrap_content"

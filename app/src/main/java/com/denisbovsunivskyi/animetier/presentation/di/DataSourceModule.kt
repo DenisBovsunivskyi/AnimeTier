@@ -1,6 +1,9 @@
 package com.denisbovsunivskyi.animetier.presentation.di
 
 import android.content.Context
+import com.denisbovsunivskyi.animetier.data.api.AnimeServiceApi
+import com.denisbovsunivskyi.animetier.data.datasource.anime.AnimeDataSource
+import com.denisbovsunivskyi.animetier.data.datasource.anime.AnimeDataSourceImpl
 import com.denisbovsunivskyi.animetier.data.datasource.user.AuthDataSource
 import com.denisbovsunivskyi.animetier.data.datasource.user.AuthDataSourceImpl
 import com.denisbovsunivskyi.animetier.data.datasource.user.UserProfileDataSource
@@ -33,5 +36,10 @@ class DataSourceModule {
     @Singleton
     fun provideUpdateUserDataSource(firebaseFirestore: FirebaseFirestore,storageReference: StorageReference): UserProfileDataSource {
         return UserProfileDataSourceImpl(firebaseFirestore,storageReference)
+    }
+    @Provides
+    @Singleton
+    fun provideAnimeDataSource(animeServiceApi: AnimeServiceApi): AnimeDataSource {
+        return AnimeDataSourceImpl(animeServiceApi)
     }
 }

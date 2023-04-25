@@ -30,9 +30,9 @@ class NetModule {
                     .build()
                     .let(chain::proceed)
             }
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(20, TimeUnit.SECONDS)
-            .writeTimeout(25, TimeUnit.SECONDS)
+            .connectTimeout(45, TimeUnit.SECONDS)
+            .readTimeout(45, TimeUnit.SECONDS)
+            .writeTimeout(45, TimeUnit.SECONDS)
             .build()
         println(BuildConfig.BASE_URL)
         return Retrofit.Builder()

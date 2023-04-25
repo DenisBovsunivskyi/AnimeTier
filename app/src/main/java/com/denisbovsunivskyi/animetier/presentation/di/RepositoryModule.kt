@@ -3,12 +3,14 @@ package com.denisbovsunivskyi.animetier.presentation.di
 import com.denisbovsunivskyi.animetier.data.datasource.anime.AnimeDataSource
 import com.denisbovsunivskyi.animetier.data.datasource.user.AuthDataSource
 import com.denisbovsunivskyi.animetier.data.datasource.user.UserProfileDataSource
+import com.denisbovsunivskyi.animetier.data.repository.anime.AnimeRepositoryImpl
 import com.denisbovsunivskyi.animetier.data.repository.anime.TrendingAnimeRepositoryImpl
 import com.denisbovsunivskyi.animetier.data.repository.user.AuthRepositoryImpl
 import com.denisbovsunivskyi.animetier.data.repository.user.ProfileRepositoryImpl
-import com.denisbovsunivskyi.animetier.domain.repository.AuthRepository
-import com.denisbovsunivskyi.animetier.domain.repository.ProfileRepository
-import com.denisbovsunivskyi.animetier.domain.repository.TrendingAnimeRepository
+import com.denisbovsunivskyi.animetier.domain.repository.anime.AnimeRepository
+import com.denisbovsunivskyi.animetier.domain.repository.auth.AuthRepository
+import com.denisbovsunivskyi.animetier.domain.repository.auth.ProfileRepository
+import com.denisbovsunivskyi.animetier.domain.repository.anime.TrendingAnimeRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,5 +41,12 @@ class RepositoryModule {
        animeDataSource: AnimeDataSource,
     ): TrendingAnimeRepository {
         return TrendingAnimeRepositoryImpl(animeDataSource)
+    }
+    @Singleton
+    @Provides
+    fun provideAnimeRepository(
+        animeDataSource: AnimeDataSource,
+    ): AnimeRepository {
+        return AnimeRepositoryImpl(animeDataSource)
     }
 }

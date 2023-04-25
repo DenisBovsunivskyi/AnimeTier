@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.domain.repository
+package com.denisbovsunivskyi.animetier.domain.repository.auth
 
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
 

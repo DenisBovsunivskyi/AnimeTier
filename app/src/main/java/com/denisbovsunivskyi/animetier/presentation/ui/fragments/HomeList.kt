@@ -3,22 +3,26 @@ package com.denisbovsunivskyi.animetier.presentation.ui.fragments
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.denisbovsunivskyi.animetier.core.fragment.BaseBindingFragment
 import com.denisbovsunivskyi.animetier.databinding.FragmentHomeListBinding
 import com.denisbovsunivskyi.animetier.domain.common.ResponseResult
+import com.denisbovsunivskyi.animetier.presentation.ui.adapter.AllAnimeAdapter
 import com.denisbovsunivskyi.animetier.presentation.ui.adapter.TrendingAnimeAdapter
+import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.home.AllAnimeViewModel
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.home.TrendingAnimeViewModel
 import com.denisbovsunivskyi.animetier.presentation.utils.MarginItemDecoration
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeList : BaseBindingFragment<FragmentHomeListBinding>() {
     private val trendingAnimeViewModel by activityViewModels<TrendingAnimeViewModel>()
-    private val adapter: TrendingAnimeAdapter by lazy {
+    private val allAnimeViewModel by activityViewModels<AllAnimeViewModel>()
+    private val trendingAdapter: TrendingAnimeAdapter by lazy {
         return@lazy TrendingAnimeAdapter()
+    }
+    private val allAnimeAdapter: AllAnimeAdapter by lazy {
+        return@lazy AllAnimeAdapter()
     }
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeListBinding
         get() = FragmentHomeListBinding::inflate
@@ -29,23 +33,23 @@ class HomeList : BaseBindingFragment<FragmentHomeListBinding>() {
 
     override fun initViews() {
         super.initViews()
-        binding.trendingRecycler.adapter = adapter
+        binding.progressBar.hide()
+        binding.trendingRecycler.adapter = trendingAdapter
         binding.trendingRecycler.addItemDecoration(MarginItemDecoration(15))
-
+        binding.allRecycler.adapter = allAnimeAdapter
+        binding.allRecycler.layoutManager = GridLayoutManager(requireContext(),2)
     }
 
     override fun initListeners() {
-        binding.logout.setOnClickListener {
-            Firebase.auth.signOut()
-            findNavController().navigate(HomeListDirections.actionGlobalAuth())
-        }
+
     }
 
     override fun initViewModels() {
-        trendingAnimeViewModel.trendingAnimeList.observe(this) {
+        trendingAnimeViewModel.trendingAnimeList.observe(viewLifecycleOwner) {
             when (it) {
                 is ResponseResult.Success -> {
-                    adapter.differ.submitList(it.data?.data)
+                    println("Trending Success")
+                    trendingAdapter.differ.submitList(it.data?.data)
                 }
 
                 is ResponseResult.Error -> {
@@ -53,7 +57,26 @@ class HomeList : BaseBindingFragment<FragmentHomeListBinding>() {
                 }
 
                 is ResponseResult.Loading -> {
+
                     println("Loading")
+                }
+            }
+        }
+        allAnimeViewModel.allAnimeList.observe(viewLifecycleOwner){
+            when (it) {
+                is ResponseResult.Success -> {
+                    binding.progressBar.hide()
+                    println("All Success")
+                    allAnimeAdapter.differ.submitList(it.data?.data)
+                }
+
+                is ResponseResult.Error -> {
+                    binding.progressBar.hide()
+                    println(it.message?.asString(requireContext()))
+                }
+
+                is ResponseResult.Loading -> {
+                   binding.progressBar.show()
                 }
             }
         }

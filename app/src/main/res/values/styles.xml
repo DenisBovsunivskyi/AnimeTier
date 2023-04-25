@@ -158,4 +158,7 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item>
     </style>
+    <style name="CircularProgress" parent="Widget.AppCompat.ProgressBar">
+        <item name="colorAccent">@color/primary</item>
+    </style>
 </resources>

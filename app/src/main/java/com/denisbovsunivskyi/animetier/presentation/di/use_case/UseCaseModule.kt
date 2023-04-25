@@ -1,11 +1,13 @@
 package com.denisbovsunivskyi.animetier.presentation.di.use_case
 
-import com.denisbovsunivskyi.animetier.domain.repository.AuthRepository
-import com.denisbovsunivskyi.animetier.domain.repository.ProfileRepository
-import com.denisbovsunivskyi.animetier.domain.repository.TrendingAnimeRepository
+import com.denisbovsunivskyi.animetier.domain.repository.anime.AnimeRepository
+import com.denisbovsunivskyi.animetier.domain.repository.auth.AuthRepository
+import com.denisbovsunivskyi.animetier.domain.repository.auth.ProfileRepository
+import com.denisbovsunivskyi.animetier.domain.repository.anime.TrendingAnimeRepository
 import com.denisbovsunivskyi.animetier.domain.usecase.auth.AuthUserUseCase
 import com.denisbovsunivskyi.animetier.domain.usecase.auth.CreateUserInRemoteDbUseCase
 import com.denisbovsunivskyi.animetier.domain.usecase.auth.RegisterUserUseCase
+import com.denisbovsunivskyi.animetier.domain.usecase.networkdata.anime.GetAllAnimeUseCase
 import com.denisbovsunivskyi.animetier.domain.usecase.networkdata.anime.GetTrendingAnimeUseCase
 import dagger.Module
 import dagger.Provides
@@ -38,6 +40,11 @@ class UseCaseModule {
     @Singleton
     fun provideGetTrendingAnimeUseCase(trendingAnimeRepository: TrendingAnimeRepository): GetTrendingAnimeUseCase {
         return GetTrendingAnimeUseCase(trendingAnimeRepository)
+    }
+    @Provides
+    @Singleton
+    fun provideGetAnimeUseCase(animeRepository: AnimeRepository): GetAllAnimeUseCase {
+        return GetAllAnimeUseCase(animeRepository)
     }
 
 }

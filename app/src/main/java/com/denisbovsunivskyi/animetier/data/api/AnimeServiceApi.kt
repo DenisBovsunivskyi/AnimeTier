@@ -7,8 +7,11 @@ import retrofit2.http.GET
 interface AnimeServiceApi {
     companion object {
         const val GET_TRENDING_ANIME = "trending/anime"
+        const val GET_ANIME = "anime"
     }
 
     @GET(GET_TRENDING_ANIME)
     suspend fun getTrendingAnime(): Response<AnimeData>
+    @GET(GET_ANIME)
+    suspend fun getAllAnime(): Response<AnimeData>
 }

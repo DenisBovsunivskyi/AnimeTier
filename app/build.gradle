@@ -106,4 +106,8 @@ dependencies {
 
     //Image cropper
     implementation("com.vanniktech:android-image-cropper:4.5.0")
+
+    //Swipe to refresh
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
+
 }

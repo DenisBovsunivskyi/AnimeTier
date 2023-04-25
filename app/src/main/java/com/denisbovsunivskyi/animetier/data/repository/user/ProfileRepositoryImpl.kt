@@ -5,7 +5,7 @@ import com.denisbovsunivskyi.animetier.data.datasource.user.UserProfileDataSourc
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
 import com.denisbovsunivskyi.animetier.presentation.model.user.UserInfo
 import com.denisbovsunivskyi.animetier.data.models.user.UserProfileModelDto
-import com.denisbovsunivskyi.animetier.domain.repository.ProfileRepository
+import com.denisbovsunivskyi.animetier.domain.repository.auth.ProfileRepository
 
 class ProfileRepositoryImpl(
     private val userProfileDataSource: UserProfileDataSource

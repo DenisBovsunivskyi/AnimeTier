@@ -3,7 +3,7 @@ package com.denisbovsunivskyi.animetier.domain.usecase.networkdata.anime
 import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.data.models.anime.tranding.AnimeData
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
-import com.denisbovsunivskyi.animetier.domain.repository.TrendingAnimeRepository
+import com.denisbovsunivskyi.animetier.domain.repository.anime.TrendingAnimeRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

@@ -2,7 +2,7 @@ package com.denisbovsunivskyi.animetier.data.repository.user
 
 import com.denisbovsunivskyi.animetier.data.datasource.user.AuthDataSource
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
-import com.denisbovsunivskyi.animetier.domain.repository.AuthRepository
+import com.denisbovsunivskyi.animetier.domain.repository.auth.AuthRepository
 
 class AuthRepositoryImpl(
     private val authDataSource: AuthDataSource

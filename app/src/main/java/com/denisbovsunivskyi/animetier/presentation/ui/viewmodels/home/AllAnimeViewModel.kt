@@ -6,34 +6,34 @@ import androidx.lifecycle.viewModelScope
 import com.denisbovsunivskyi.animetier.data.models.anime.tranding.AnimeData
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
 import com.denisbovsunivskyi.animetier.domain.common.ResponseResult
-import com.denisbovsunivskyi.animetier.domain.usecase.networkdata.anime.GetTrendingAnimeUseCase
+import com.denisbovsunivskyi.animetier.domain.usecase.networkdata.anime.GetAllAnimeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TrendingAnimeViewModel @Inject constructor(
-    private val trendingAnimeUseCase: GetTrendingAnimeUseCase
+class AllAnimeViewModel @Inject constructor(
+    private val allAnimeUseCase: GetAllAnimeUseCase
 ) :
     ViewModel() {
-    val trendingAnimeList: MutableLiveData<ResponseResult<AnimeData>> =
+    val allAnimeList: MutableLiveData<ResponseResult<AnimeData>> =
         MutableLiveData()
 
     init {
-        getTrendingAnime()
+        getAlLAnime()
     }
 
-    private fun getTrendingAnime() {
+    private fun getAlLAnime() {
         viewModelScope.launch {
-            trendingAnimeList.postValue(ResponseResult.Loading())
-            trendingAnimeUseCase.execute().collect { response ->
+            allAnimeList.postValue(ResponseResult.Loading())
+            allAnimeUseCase.execute().collect { response ->
                 when (response) {
                     is ResponseState.Success -> {
-                        trendingAnimeList.postValue(ResponseResult.Success(response.data))
+                        allAnimeList.postValue(ResponseResult.Success(response.data))
                     }
 
                     is ResponseState.Error -> {
-                        trendingAnimeList.postValue(ResponseResult.Error(response.rawResponse))
+                        allAnimeList.postValue(ResponseResult.Error(response.rawResponse))
                     }
                 }
             }

@@ -36,6 +36,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_trending_anime">Trending Anime</string>
     <string name="text_episodes">%1$d Episodes</string>
+    <string name="text_all">All</string>
 
 
 </resources>

@@ -5,4 +5,5 @@ import retrofit2.Response
 
 interface AnimeDataSource {
     suspend fun fetchTrendingAnime(): Response<AnimeData>
+    suspend fun fetchAllAnime(): Response<AnimeData>
 }

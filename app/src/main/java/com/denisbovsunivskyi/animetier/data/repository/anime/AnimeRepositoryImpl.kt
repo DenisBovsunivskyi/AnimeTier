@@ -5,15 +5,15 @@ import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.data.datasource.anime.AnimeDataSource
 import com.denisbovsunivskyi.animetier.data.models.anime.tranding.AnimeData
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
-import com.denisbovsunivskyi.animetier.domain.repository.anime.TrendingAnimeRepository
+import com.denisbovsunivskyi.animetier.domain.repository.anime.AnimeRepository
 import kotlinx.coroutines.flow.Flow
 
-class TrendingAnimeRepositoryImpl(
+class AnimeRepositoryImpl(
     private val animeDataSource: AnimeDataSource
-) : BaseRepository(), TrendingAnimeRepository {
-    override suspend fun fetchTrendingAnime(): Flow<ResponseState<AnimeData, UniversalText>> {
+) : BaseRepository(), AnimeRepository {
+    override suspend fun fetchAnime(): Flow<ResponseState<AnimeData, UniversalText>> {
         return doHandleRequest {
-            animeDataSource.fetchTrendingAnime()
+            animeDataSource.fetchAllAnime()
         }
     }
 }

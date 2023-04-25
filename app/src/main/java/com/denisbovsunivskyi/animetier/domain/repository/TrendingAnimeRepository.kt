@@ -1,9 +1,10 @@
 package com.denisbovsunivskyi.animetier.domain.repository
 
 import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
-import com.denisbovsunivskyi.animetier.data.models.anime.tranding.TrendingAnimeData
+import com.denisbovsunivskyi.animetier.data.models.anime.tranding.AnimeData
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
+import kotlinx.coroutines.flow.Flow
 
 interface TrendingAnimeRepository {
-    suspend fun fetchTrendingAnime(): ResponseState<TrendingAnimeData, UniversalText>
+    suspend fun fetchTrendingAnime(): Flow<ResponseState<AnimeData, UniversalText>>
 }

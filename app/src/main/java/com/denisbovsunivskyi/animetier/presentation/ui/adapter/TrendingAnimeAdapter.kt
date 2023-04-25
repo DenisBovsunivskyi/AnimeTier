@@ -5,22 +5,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.denisbovsunivskyi.animetier.data.models.anime.tranding.TrendingAnimeDto
+import com.denisbovsunivskyi.animetier.data.models.anime.tranding.AnimeDto
 import com.denisbovsunivskyi.animetier.databinding.ItemHorizontalAnimeBinding
 
 
 class TrendingAnimeAdapter : RecyclerView.Adapter<TrendingAnimeAdapter.AnimeViewHolder>() {
-    private val callback = object : DiffUtil.ItemCallback<TrendingAnimeDto>() {
+    private val callback = object : DiffUtil.ItemCallback<AnimeDto>() {
         override fun areItemsTheSame(
-            oldItem: TrendingAnimeDto,
-            newItem: TrendingAnimeDto
+            oldItem: AnimeDto,
+            newItem: AnimeDto
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: TrendingAnimeDto,
-            newItem: TrendingAnimeDto
+            oldItem: AnimeDto,
+            newItem: AnimeDto
         ): Boolean {
             return oldItem == newItem
         }
@@ -44,7 +44,7 @@ class TrendingAnimeAdapter : RecyclerView.Adapter<TrendingAnimeAdapter.AnimeView
 
     inner class AnimeViewHolder(val binding: ItemHorizontalAnimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(anime: TrendingAnimeDto) {
+        fun bind(anime: AnimeDto) {
             binding.model = anime
             binding.root.setOnClickListener {
                 onClickListener?.let {
@@ -54,9 +54,9 @@ class TrendingAnimeAdapter : RecyclerView.Adapter<TrendingAnimeAdapter.AnimeView
         }
     }
 
-    private var onClickListener: ((TrendingAnimeDto) -> Unit)? = null
+    private var onClickListener: ((AnimeDto) -> Unit)? = null
 
-    fun setOnClickListener(listener: (TrendingAnimeDto) -> Unit) {
+    fun setOnClickListener(listener: (AnimeDto) -> Unit) {
         onClickListener = listener
     }
 

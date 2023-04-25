@@ -41,7 +41,11 @@ class HomeList : BaseBindingFragment<FragmentHomeListBinding>() {
     }
 
     override fun initListeners() {
-
+        binding.swipeToRefresh.setOnRefreshListener {
+            allAnimeViewModel.getAlLAnime()
+            trendingAnimeViewModel.getTrendingAnime()
+            binding.swipeToRefresh.isRefreshing  = false
+        }
     }
 
     override fun initViewModels() {

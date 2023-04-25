@@ -23,7 +23,7 @@ class AllAnimeViewModel @Inject constructor(
         getAlLAnime()
     }
 
-    private fun getAlLAnime() {
+     fun getAlLAnime() {
         viewModelScope.launch {
             allAnimeList.postValue(ResponseResult.Loading())
             allAnimeUseCase.execute().collect { response ->

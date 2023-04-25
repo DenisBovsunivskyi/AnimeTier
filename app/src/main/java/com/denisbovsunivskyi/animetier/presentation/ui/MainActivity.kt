@@ -1,8 +1,6 @@
 package com.denisbovsunivskyi.animetier.presentation.ui
 
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.navigation.ui.setupWithNavController
 import com.denisbovsunivskyi.animetier.R
 import com.denisbovsunivskyi.animetier.core.activity.BaseNavigationActivity
@@ -12,6 +10,7 @@ import com.denisbovsunivskyi.animetier.presentation.utils.showView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : BaseNavigationActivity() {
@@ -24,18 +23,20 @@ class MainActivity : BaseNavigationActivity() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
+
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 
     override fun onInitNavController() {
         currentUser?.reload()
-        if (currentUser == null) {
-            mNavController.navigate(MainActivityDirections.actionGlobalAuth())
-        } else {
-            mNavController.navigate(MainActivityDirections.actionGlobalHomeList())
-            Toast.makeText(this, "User sign ined", Toast.LENGTH_SHORT).show()
-        }
+//        if (currentUser == null) {
+//            mNavController.navigate(MainActivityDirections.actionGlobalAuth())
+//        } else {
+//            mNavController.navigate(MainActivityDirections.actionGlobalHomeList())
+//            Toast.makeText(this, "User sign ined", Toast.LENGTH_SHORT).show()
+//        }
         binding.bottomNav.setupWithNavController(mNavController)
 
         mNavController.addOnDestinationChangedListener { _, destination, _ ->

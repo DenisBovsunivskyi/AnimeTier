@@ -23,7 +23,7 @@ class TrendingAnimeViewModel @Inject constructor(
         getTrendingAnime()
     }
 
-    private fun getTrendingAnime() {
+     fun getTrendingAnime() {
         viewModelScope.launch {
             trendingAnimeList.postValue(ResponseResult.Loading())
             trendingAnimeUseCase.execute().collect { response ->

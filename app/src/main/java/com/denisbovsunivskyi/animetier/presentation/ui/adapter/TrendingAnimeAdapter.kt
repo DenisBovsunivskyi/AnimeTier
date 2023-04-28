@@ -5,22 +5,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.denisbovsunivskyi.animetier.data.models.anime.tranding.AnimeDto
+import com.denisbovsunivskyi.animetier.data.models.anime.AnimeModelDto
 import com.denisbovsunivskyi.animetier.databinding.ItemHorizontalAnimeBinding
 
 
 class TrendingAnimeAdapter : RecyclerView.Adapter<TrendingAnimeAdapter.AnimeViewHolder>() {
-    private val callback = object : DiffUtil.ItemCallback<AnimeDto>() {
+    private val callback = object : DiffUtil.ItemCallback<AnimeModelDto>() {
         override fun areItemsTheSame(
-            oldItem: AnimeDto,
-            newItem: AnimeDto
+            oldItem: AnimeModelDto,
+            newItem: AnimeModelDto
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: AnimeDto,
-            newItem: AnimeDto
+            oldItem: AnimeModelDto,
+            newItem: AnimeModelDto
         ): Boolean {
             return oldItem == newItem
         }
@@ -44,7 +44,7 @@ class TrendingAnimeAdapter : RecyclerView.Adapter<TrendingAnimeAdapter.AnimeView
 
     inner class AnimeViewHolder(val binding: ItemHorizontalAnimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(anime: AnimeDto) {
+        fun bind(anime: AnimeModelDto) {
             binding.model = anime
             binding.root.setOnClickListener {
                 onClickListener?.let {
@@ -54,9 +54,9 @@ class TrendingAnimeAdapter : RecyclerView.Adapter<TrendingAnimeAdapter.AnimeView
         }
     }
 
-    private var onClickListener: ((AnimeDto) -> Unit)? = null
+    private var onClickListener: ((AnimeModelDto) -> Unit)? = null
 
-    fun setOnClickListener(listener: (AnimeDto) -> Unit) {
+    fun setOnClickListener(listener: (AnimeModelDto) -> Unit) {
         onClickListener = listener
     }
 

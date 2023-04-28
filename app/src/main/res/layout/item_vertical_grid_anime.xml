@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="com.denisbovsunivskyi.animetier.data.models.anime.tranding.AnimeDto" />
+            type="com.denisbovsunivskyi.animetier.domain.models.anime.AnimeModel" />
 
 
     </data>

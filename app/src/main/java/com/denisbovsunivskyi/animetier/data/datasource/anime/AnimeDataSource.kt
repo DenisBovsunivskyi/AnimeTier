@@ -1,9 +1,9 @@
 package com.denisbovsunivskyi.animetier.data.datasource.anime
 
-import com.denisbovsunivskyi.animetier.data.models.anime.tranding.AnimeData
+import com.denisbovsunivskyi.animetier.data.models.anime.AnimeDataDto
 import retrofit2.Response
 
 interface AnimeDataSource {
-    suspend fun fetchTrendingAnime(): Response<AnimeData>
-    suspend fun fetchAllAnime(): Response<AnimeData>
+    suspend fun fetchTrendingAnime(): Response<AnimeDataDto>
+    suspend fun fetchAllAnime(): Response<AnimeDataDto>
 }

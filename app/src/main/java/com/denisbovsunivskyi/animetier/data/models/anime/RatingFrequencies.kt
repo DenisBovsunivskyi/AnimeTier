@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.data.models.anime.tranding
+package com.denisbovsunivskyi.animetier.data.models.anime
 
 
 import com.google.gson.annotations.SerializedName

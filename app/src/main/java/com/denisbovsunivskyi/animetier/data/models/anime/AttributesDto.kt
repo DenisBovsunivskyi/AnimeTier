@@ -1,9 +1,11 @@
-package com.denisbovsunivskyi.animetier.data.models.anime.tranding
+package com.denisbovsunivskyi.animetier.data.models.anime
 
 
+import com.denisbovsunivskyi.animetier.data.models.DataLayerMapper
+import com.denisbovsunivskyi.animetier.domain.models.anime.Attributes
 import com.google.gson.annotations.SerializedName
 
-data class Attributes(
+data class AttributesDto(
     @SerializedName("abbreviatedTitles")
     val abbreviatedTitles: List<String>,
     @SerializedName("ageRating")
@@ -66,4 +68,41 @@ data class Attributes(
     val userCount: Int,
     @SerializedName("youtubeVideoId")
     val youtubeVideoId: String
-)
+) : DataLayerMapper<Attributes> {
+    override fun toDomain(): Attributes {
+        return Attributes(
+            abbreviatedTitles = this.abbreviatedTitles,
+            ageRating = this.ageRating,
+            ageRatingGuide = this.ageRatingGuide,
+            averageRating = this.averageRating,
+            canonicalTitle = this.canonicalTitle,
+            coverImage = this.coverImage,
+            coverImageTopOffset = this.coverImageTopOffset,
+            createdAt = this.createdAt,
+            description = this.description,
+            endDate = this.endDate,
+            episodeCount = this.episodeCount,
+            episodeLength = this.episodeLength,
+            favoritesCount = this.favoritesCount,
+            nextRelease = this.nextRelease,
+            nsfw = this.nsfw,
+            popularityRank = this.popularityRank,
+            posterImage = this.posterImage,
+            ratingFrequencies = this.ratingFrequencies,
+            ratingRank = this.ratingRank,
+            showType = this.showType,
+            slug = this.slug,
+            startDate = this.startDate,
+            status = this.status,
+            subtype = this.subtype,
+            synopsis = this.synopsis,
+            tba = this.tba,
+            titles = this.titles,
+            totalLength = this.totalLength,
+            updatedAt = this.updatedAt,
+            userCount = this.userCount,
+            youtubeVideoId = this.youtubeVideoId
+        )
+    }
+
+}

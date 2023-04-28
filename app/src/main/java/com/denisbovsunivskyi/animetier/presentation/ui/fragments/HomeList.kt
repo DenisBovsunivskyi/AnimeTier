@@ -38,7 +38,7 @@ class HomeList : BaseBindingFragment<FragmentHomeListBinding>() {
         binding.trendingRecycler.adapter = trendingAdapter
         binding.trendingRecycler.addItemDecoration(
             MarginHorizontalItemDecoration(
-                requireContext().resources.getDimensionPixelSize(
+                rightSize =   requireContext().resources.getDimensionPixelSize(
                     R.dimen.recycler_margin
                 )
             )
@@ -73,7 +73,7 @@ class HomeList : BaseBindingFragment<FragmentHomeListBinding>() {
                 }
             }
         }
-        allAnimeViewModel.allAnimeList.observe(viewLifecycleOwner) {
+        allAnimeViewModel.getAllAnimeList().observe(viewLifecycleOwner) {
             when (it) {
                 is ResponseResult.Success -> {
                     binding.progressBar.hide()

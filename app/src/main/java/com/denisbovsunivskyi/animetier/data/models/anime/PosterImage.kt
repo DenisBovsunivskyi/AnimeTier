@@ -1,9 +1,9 @@
-package com.denisbovsunivskyi.animetier.data.models.anime.tranding
+package com.denisbovsunivskyi.animetier.data.models.anime
 
 
 import com.google.gson.annotations.SerializedName
 
-data class CoverImage(
+data class PosterImage(
     @SerializedName("original")
     val original: String
 )

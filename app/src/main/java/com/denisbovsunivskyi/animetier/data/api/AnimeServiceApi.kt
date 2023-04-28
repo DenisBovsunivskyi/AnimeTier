@@ -1,6 +1,6 @@
 package com.denisbovsunivskyi.animetier.data.api
 
-import com.denisbovsunivskyi.animetier.data.models.anime.tranding.AnimeData
+import com.denisbovsunivskyi.animetier.data.models.anime.AnimeDataDto
 import retrofit2.Response
 import retrofit2.http.GET
 
@@ -11,7 +11,7 @@ interface AnimeServiceApi {
     }
 
     @GET(GET_TRENDING_ANIME)
-    suspend fun getTrendingAnime(): Response<AnimeData>
+    suspend fun getTrendingAnime(): Response<AnimeDataDto>
     @GET(GET_ANIME)
-    suspend fun getAllAnime(): Response<AnimeData>
+    suspend fun getAllAnime(): Response<AnimeDataDto>
 }

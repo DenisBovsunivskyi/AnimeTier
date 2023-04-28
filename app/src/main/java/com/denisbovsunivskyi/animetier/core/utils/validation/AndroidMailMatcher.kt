@@ -1,7 +1,7 @@
 package com.denisbovsunivskyi.animetier.core.utils.validation
 
 import android.util.Patterns
-import com.denisbovsunivskyi.animetier.domain.common.MailMatcher
+import com.denisbovsunivskyi.animetier.domain.utils.MailMatcher
 
 
 class AndroidMailMatcher : MailMatcher {

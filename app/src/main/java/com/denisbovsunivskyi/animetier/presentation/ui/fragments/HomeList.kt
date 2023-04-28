@@ -4,14 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.denisbovsunivskyi.animetier.R
 import com.denisbovsunivskyi.animetier.core.fragment.BaseBindingFragment
 import com.denisbovsunivskyi.animetier.databinding.FragmentHomeListBinding
-import com.denisbovsunivskyi.animetier.domain.common.ResponseResult
+import com.denisbovsunivskyi.animetier.domain.utils.ResponseResult
 import com.denisbovsunivskyi.animetier.presentation.ui.adapter.AllAnimeAdapter
 import com.denisbovsunivskyi.animetier.presentation.ui.adapter.TrendingAnimeAdapter
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.home.AllAnimeViewModel
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.home.TrendingAnimeViewModel
-import com.denisbovsunivskyi.animetier.presentation.utils.MarginItemDecoration
+import com.denisbovsunivskyi.animetier.presentation.utils.MarginHorizontalItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,16 +36,22 @@ class HomeList : BaseBindingFragment<FragmentHomeListBinding>() {
         super.initViews()
         binding.progressBar.hide()
         binding.trendingRecycler.adapter = trendingAdapter
-        binding.trendingRecycler.addItemDecoration(MarginItemDecoration(15))
+        binding.trendingRecycler.addItemDecoration(
+            MarginHorizontalItemDecoration(
+                requireContext().resources.getDimensionPixelSize(
+                    R.dimen.recycler_margin
+                )
+            )
+        )
         binding.allRecycler.adapter = allAnimeAdapter
-        binding.allRecycler.layoutManager = GridLayoutManager(requireContext(),2)
+        binding.allRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
     }
 
     override fun initListeners() {
         binding.swipeToRefresh.setOnRefreshListener {
             allAnimeViewModel.getAlLAnime()
             trendingAnimeViewModel.getTrendingAnime()
-            binding.swipeToRefresh.isRefreshing  = false
+            binding.swipeToRefresh.isRefreshing = false
         }
     }
 
@@ -66,7 +73,7 @@ class HomeList : BaseBindingFragment<FragmentHomeListBinding>() {
                 }
             }
         }
-        allAnimeViewModel.allAnimeList.observe(viewLifecycleOwner){
+        allAnimeViewModel.allAnimeList.observe(viewLifecycleOwner) {
             when (it) {
                 is ResponseResult.Success -> {
                     binding.progressBar.hide()
@@ -80,7 +87,7 @@ class HomeList : BaseBindingFragment<FragmentHomeListBinding>() {
                 }
 
                 is ResponseResult.Loading -> {
-                   binding.progressBar.show()
+                    binding.progressBar.show()
                 }
             }
         }

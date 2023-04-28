@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.denisbovsunivskyi.animetier.data.models.anime.tranding.AnimeData
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
-import com.denisbovsunivskyi.animetier.domain.common.ResponseResult
+import com.denisbovsunivskyi.animetier.domain.utils.ResponseResult
 import com.denisbovsunivskyi.animetier.domain.usecase.networkdata.anime.GetTrendingAnimeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

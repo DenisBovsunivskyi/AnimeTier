@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.domain.common
+package com.denisbovsunivskyi.animetier.domain.utils
 
 sealed class BaseResult <out T : Any, out U : Any> {
     data class Success <T: Any>(val data : T) : BaseResult<T, Nothing>()

@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.domain.common
+package com.denisbovsunivskyi.animetier.domain.utils
 
 interface MailMatcher {
     fun matches(mail: String): Boolean

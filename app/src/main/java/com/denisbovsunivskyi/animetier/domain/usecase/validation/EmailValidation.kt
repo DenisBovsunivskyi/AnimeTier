@@ -2,8 +2,8 @@ package com.denisbovsunivskyi.animetier.domain.usecase.validation
 
 import com.denisbovsunivskyi.animetier.R
 import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
-import com.denisbovsunivskyi.animetier.domain.common.MailMatcher
-import com.denisbovsunivskyi.animetier.domain.common.ValidationResult
+import com.denisbovsunivskyi.animetier.domain.utils.MailMatcher
+import com.denisbovsunivskyi.animetier.domain.utils.ValidationResult
 
 class EmailValidation(
     private val matcher: MailMatcher

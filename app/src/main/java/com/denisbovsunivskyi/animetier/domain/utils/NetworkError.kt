@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.domain.common
+package com.denisbovsunivskyi.animetier.domain.utils
 
 sealed class NetworkError {
     class Api(val error: MutableMap<String, List<String>>) : NetworkError()

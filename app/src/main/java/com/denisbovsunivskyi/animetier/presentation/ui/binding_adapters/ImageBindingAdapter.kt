@@ -10,14 +10,22 @@ import com.denisbovsunivskyi.animetier.presentation.module.GlideApp
 object ImageBindingAdapter {
     @JvmStatic
     @BindingAdapter("setHorizontalAnimeImage")
-    fun bindingSetAvatarPhoto(view: AppCompatImageView, path: String) {
+    fun bindingSetHorizontalAnimePhoto(view: AppCompatImageView, path: String) {
         GlideApp.with(view)
             .asDrawable()
             .load(path)
             .transform(CenterCrop())
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(view)
-
-
+    }
+    @JvmStatic
+    @BindingAdapter("setVerticalAnimeImage")
+    fun bindingSetVerticalAnimePhoto(view: AppCompatImageView, path: String) {
+        GlideApp.with(view)
+            .asDrawable()
+            .load(path)
+            .transform(CenterCrop())
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(view)
     }
 }

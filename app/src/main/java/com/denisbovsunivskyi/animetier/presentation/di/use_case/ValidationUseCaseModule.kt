@@ -1,6 +1,6 @@
 package com.denisbovsunivskyi.animetier.presentation.di.use_case
 
-import com.denisbovsunivskyi.animetier.domain.common.MailMatcher
+import com.denisbovsunivskyi.animetier.domain.utils.MailMatcher
 import com.denisbovsunivskyi.animetier.domain.usecase.validation.ConfirmPasswordValidation
 import com.denisbovsunivskyi.animetier.domain.usecase.validation.EmailValidation
 import com.denisbovsunivskyi.animetier.domain.usecase.validation.PasswordValidation

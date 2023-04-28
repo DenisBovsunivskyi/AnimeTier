@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.domain.common
+package com.denisbovsunivskyi.animetier.domain.utils
 
 import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 

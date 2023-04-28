@@ -68,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/grey_dark"
                 android:layout_marginTop="10dp">
 
                 <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
@@ -88,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/grey_dark"
                 android:layout_marginTop="10dp">
 
                 <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText

@@ -87,6 +87,7 @@
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/grey_dark"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_number_label">
 

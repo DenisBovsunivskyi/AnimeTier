@@ -1,6 +1,7 @@
 package com.denisbovsunivskyi.animetier.presentation.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.navigation.ui.setupWithNavController
 import com.denisbovsunivskyi.animetier.R
 import com.denisbovsunivskyi.animetier.core.activity.BaseNavigationActivity
@@ -17,26 +18,28 @@ class MainActivity : BaseNavigationActivity() {
     private val currentUser = Firebase.auth.currentUser
 
     private lateinit var binding: ActivityMainBinding
-
+    private var saveInstance: Bundle? = null
     override fun setNavController(): Int {
         return R.id.nav_fragment_container
     }
 
     override fun init(savedInstanceState: Bundle?) {
-
-
+        saveInstance = savedInstanceState
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 
     override fun onInitNavController() {
         currentUser?.reload()
-//        if (currentUser == null) {
-//            mNavController.navigate(MainActivityDirections.actionGlobalAuth())
-//        } else {
-//            mNavController.navigate(MainActivityDirections.actionGlobalHomeList())
-//            Toast.makeText(this, "User sign ined", Toast.LENGTH_SHORT).show()
-//        }
+        if (saveInstance == null) {
+            if (currentUser == null) {
+                mNavController.navigate(MainActivityDirections.actionGlobalAuth())
+            } else {
+                mNavController.navigate(MainActivityDirections.actionGlobalHomeList())
+                Toast.makeText(this, "User sign ined", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         binding.bottomNav.setupWithNavController(mNavController)
 
         mNavController.addOnDestinationChangedListener { _, destination, _ ->
@@ -47,6 +50,10 @@ class MainActivity : BaseNavigationActivity() {
                 else -> isBottomNavVisible(true)
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
     }
 
     private fun isBottomNavVisible(show: Boolean) {

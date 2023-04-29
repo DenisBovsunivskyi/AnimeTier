@@ -4,6 +4,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.denisbovsunivskyi.animetier.domain.models.anime.AnimeModel
 import com.denisbovsunivskyi.animetier.presentation.module.GlideApp
 
 
@@ -18,6 +19,7 @@ object ImageBindingAdapter {
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(view)
     }
+
     @JvmStatic
     @BindingAdapter("setVerticalAnimeImage")
     fun bindingSetVerticalAnimePhoto(view: AppCompatImageView, path: String) {
@@ -27,5 +29,21 @@ object ImageBindingAdapter {
             .transform(CenterCrop())
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(view)
+    }
+
+    @JvmStatic
+    @BindingAdapter("setLandscapeAnimeCoverImage")
+    fun bindingSetLandscapeAnimeCoverImage(view: AppCompatImageView, anime: AnimeModel) {
+        val imageUrl =
+            anime.attributes.coverImage?.original ?: anime.attributes.posterImage.original
+
+        GlideApp.with(view)
+            .asDrawable()
+            .load(imageUrl)
+            .centerCrop()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(view)
+
+
     }
 }

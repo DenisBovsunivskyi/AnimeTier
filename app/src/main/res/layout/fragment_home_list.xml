@@ -21,8 +21,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                   >
+                    android:layout_height="match_parent">
 
 
                     <com.google.android.material.textview.MaterialTextView
@@ -41,11 +40,10 @@
                         android:id="@+id/trending_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
                         android:layout_marginTop="10dp"
                         android:clipToPadding="false"
                         android:orientation="horizontal"
-                        android:paddingStart="24dp"
-                        android:paddingEnd="16dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/trending_anime_title"
@@ -72,9 +70,11 @@
                         android:layout_marginTop="10dp"
                         android:clipToPadding="false"
                         android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/all_anime_title"
+                        app:spanCount="2"
                         tools:itemCount="5"
                         tools:listitem="@layout/item_vertical_grid_anime" />
 

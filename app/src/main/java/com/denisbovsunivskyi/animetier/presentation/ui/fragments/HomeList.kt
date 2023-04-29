@@ -44,6 +44,16 @@ class HomeList : BaseBindingFragment<FragmentHomeListBinding>() {
             )
         )
         binding.allRecycler.adapter = allAnimeAdapter
+        binding.allRecycler.addItemDecoration(
+            MarginHorizontalItemDecoration(
+                rightSize =   requireContext().resources.getDimensionPixelSize(
+                    R.dimen.recycler_margin
+                ),
+                bottomSize =  requireContext().resources.getDimensionPixelSize(
+                    R.dimen.recycler_margin_bottom
+                )
+            )
+        )
         binding.allRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
     }
 
@@ -56,7 +66,7 @@ class HomeList : BaseBindingFragment<FragmentHomeListBinding>() {
     }
 
     override fun initViewModels() {
-        trendingAnimeViewModel.trendingAnimeList.observe(viewLifecycleOwner) {
+        trendingAnimeViewModel.getTrendingAnimeList().observe(viewLifecycleOwner) {
             when (it) {
                 is ResponseResult.Success -> {
                     println("Trending Success")

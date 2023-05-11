@@ -1,5 +1,6 @@
 package com.denisbovsunivskyi.animetier.presentation.di
 
+import com.denisbovsunivskyi.animetier.data.datasource.anime.AnimeAllPagingSource
 import com.denisbovsunivskyi.animetier.data.datasource.anime.AnimeDataSource
 import com.denisbovsunivskyi.animetier.data.datasource.user.AuthDataSource
 import com.denisbovsunivskyi.animetier.data.datasource.user.UserProfileDataSource
@@ -45,8 +46,10 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun provideAnimeRepository(
+        animePagingDataSource: AnimeAllPagingSource,
         animeDataSource: AnimeDataSource,
-    ): AnimeRepository {
-        return AnimeRepositoryImpl(animeDataSource)
+
+        ): AnimeRepository {
+        return AnimeRepositoryImpl(animePagingDataSource,animeDataSource)
     }
 }

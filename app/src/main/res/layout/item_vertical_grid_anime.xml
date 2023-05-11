@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="model"
-            type="com.denisbovsunivskyi.animetier.domain.models.anime.AnimeModel" />
+            type="com.denisbovsunivskyi.animetier.presentation.model.anime.AnimeListUi" />
 
 
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/vertical_grid_item"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -27,7 +29,7 @@
                 android:layout_height="210dp"
                 android:alpha="0.9"
                 android:src="@drawable/ic_test_image_for_recycler_horizontal"
-                app:setVerticalAnimeImage="@{model.attributes.posterImage.original}" />
+                app:setVerticalAnimeImage="@{model.posterImage.original}" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
@@ -36,10 +38,10 @@
                 android:padding="10dp"
                 android:shadowColor="@color/black"
                 android:shadowRadius="20"
-                android:text="@{@string/text_episodes(model.attributes.episodeCount)}"
+                android:text="@{@string/text_episodes(model.episodesCount)}"
                 android:textAppearance="@style/Text.H6.White.Bold"
                 android:textColor="@color/white"
-                app:gone="@{model.attributes.episodeCount != null}"
+                app:gone="@{model.episodesCount != null}"
                 tools:text="Episodes:5" />
         </androidx.cardview.widget.CardView>
 
@@ -54,7 +56,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:maxLines="2"
             android:scrollHorizontally="true"
-            android:text="@{model.attributes.titles.en != null ? model.attributes.titles.en : model.attributes.titles.enJp }"
+            android:text="@{model.titles.en != null ? model.titles.en : model.titles.enJp }"
             android:textAppearance="@style/Text.H4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image"

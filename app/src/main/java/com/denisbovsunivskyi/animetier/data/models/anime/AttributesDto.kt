@@ -67,7 +67,7 @@ data class AttributesDto(
     @SerializedName("userCount")
     val userCount: Int,
     @SerializedName("youtubeVideoId")
-    val youtubeVideoId: String
+    val youtubeVideoId: String?
 ) : DataLayerMapper<Attributes> {
     override fun toDomain(): Attributes {
         return Attributes(

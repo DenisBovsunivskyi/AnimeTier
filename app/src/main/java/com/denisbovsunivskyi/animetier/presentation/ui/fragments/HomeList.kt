@@ -3,30 +3,26 @@ package com.denisbovsunivskyi.animetier.presentation.ui.fragments
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.GridLayoutManager
-import com.denisbovsunivskyi.animetier.R
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.denisbovsunivskyi.animetier.core.fragment.BaseBindingFragment
-import com.denisbovsunivskyi.animetier.databinding.FragmentHomeListBinding
-import com.denisbovsunivskyi.animetier.domain.utils.ResponseResult
-import com.denisbovsunivskyi.animetier.presentation.ui.adapter.AllAnimeAdapter
-import com.denisbovsunivskyi.animetier.presentation.ui.adapter.TrendingAnimeAdapter
+import com.denisbovsunivskyi.animetier.databinding.FragmentHomeListTestBinding
+import com.denisbovsunivskyi.animetier.presentation.model.DataItemType
+import com.denisbovsunivskyi.animetier.presentation.ui.adapter.MainAdapter
+import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.home.AllAnimeActions
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.home.AllAnimeViewModel
-import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.home.TrendingAnimeViewModel
-import com.denisbovsunivskyi.animetier.presentation.utils.MarginHorizontalItemDecoration
+import com.denisbovsunivskyi.animetier.presentation.utils.extentions.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
-class HomeList : BaseBindingFragment<FragmentHomeListBinding>() {
-    private val trendingAnimeViewModel by activityViewModels<TrendingAnimeViewModel>()
+class HomeList : BaseBindingFragment<FragmentHomeListTestBinding>() {
     private val allAnimeViewModel by activityViewModels<AllAnimeViewModel>()
-    private val trendingAdapter: TrendingAnimeAdapter by lazy {
-        return@lazy TrendingAnimeAdapter()
+
+    private val allAnimeAdapter: MainAdapter by lazy {
+        return@lazy MainAdapter()
     }
-    private val allAnimeAdapter: AllAnimeAdapter by lazy {
-        return@lazy AllAnimeAdapter()
-    }
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeListBinding
-        get() = FragmentHomeListBinding::inflate
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeListTestBinding
+        get() = FragmentHomeListTestBinding::inflate
 
     override fun init() {
 
@@ -35,71 +31,60 @@ class HomeList : BaseBindingFragment<FragmentHomeListBinding>() {
     override fun initViews() {
         super.initViews()
         binding.progressBar.hide()
-        binding.trendingRecycler.adapter = trendingAdapter
-        binding.trendingRecycler.addItemDecoration(
-            MarginHorizontalItemDecoration(
-                rightSize =   requireContext().resources.getDimensionPixelSize(
-                    R.dimen.recycler_margin
-                )
+        binding.allRecycler.apply {
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.VERTICAL, false
             )
-        )
+        }
         binding.allRecycler.adapter = allAnimeAdapter
-        binding.allRecycler.addItemDecoration(
-            MarginHorizontalItemDecoration(
-                rightSize =   requireContext().resources.getDimensionPixelSize(
-                    R.dimen.recycler_margin
-                ),
-                bottomSize =  requireContext().resources.getDimensionPixelSize(
-                    R.dimen.recycler_margin_bottom
-                )
-            )
-        )
-        binding.allRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
     }
 
+
     override fun initListeners() {
+        allAnimeAdapter.titleClickListener = { view, item, position ->
+            when (item) {
+                DataItemType.TRENDING_ANIME -> {
+                    context?.showToast("Trending anime was clicked")
+                }
+
+                DataItemType.ALL_ANIME_LIST -> {
+                    context?.showToast("All anime was clicked")
+                }
+            }
+
+        }
         binding.swipeToRefresh.setOnRefreshListener {
-            allAnimeViewModel.getAlLAnime()
-            trendingAnimeViewModel.getTrendingAnime()
+            allAnimeViewModel.getAllAnimeData()
+            allAnimeViewModel.getTrendingAnimeData()
             binding.swipeToRefresh.isRefreshing = false
         }
     }
 
     override fun initViewModels() {
-        trendingAnimeViewModel.getTrendingAnimeList().observe(viewLifecycleOwner) {
-            when (it) {
-                is ResponseResult.Success -> {
-                    println("Trending Success")
-                    trendingAdapter.differ.submitList(it.data?.data)
-                }
-
-                is ResponseResult.Error -> {
-                    println(it.message?.asString(requireContext()))
-                }
-
-                is ResponseResult.Loading -> {
-
-                    println("Loading")
-                }
-            }
+        allAnimeViewModel.getMainAnimeLiveData().observe(viewLifecycleOwner) { result ->
+            val newList = result.map { it.copy() }
+            allAnimeAdapter.submitList(newList.toList())
         }
-        allAnimeViewModel.getAllAnimeList().observe(viewLifecycleOwner) {
-            when (it) {
-                is ResponseResult.Success -> {
-                    binding.progressBar.hide()
-                    println("All Success")
-                    allAnimeAdapter.differ.submitList(it.data?.data)
-                }
+        allAnimeViewModel.getEventLiveData().observe(viewLifecycleOwner) { state ->
+            val event = state.contentIfNotHandled
+            event?.let {
+                when (event) {
+                    is AllAnimeActions.Success -> {
+                        binding.progressBar.hide()
+                    }
 
-                is ResponseResult.Error -> {
-                    binding.progressBar.hide()
-                    println(it.message?.asString(requireContext()))
-                }
+                    is AllAnimeActions.Failed.LoadingFailed -> {
+                        binding.progressBar.hide()
+                        context?.showToast(event.message.asString(requireContext()))
+                    }
 
-                is ResponseResult.Loading -> {
-                    binding.progressBar.show()
+                    is AllAnimeActions.Loading -> {
+                        binding.progressBar.show()
+                    }
                 }
             }
+
         }
     }
 

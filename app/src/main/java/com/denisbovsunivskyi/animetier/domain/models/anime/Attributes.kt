@@ -36,5 +36,5 @@ data class Attributes(
     val totalLength: Int?,
     val updatedAt: String,
     val userCount: Int,
-    val youtubeVideoId: String
+    val youtubeVideoId: String?
 )

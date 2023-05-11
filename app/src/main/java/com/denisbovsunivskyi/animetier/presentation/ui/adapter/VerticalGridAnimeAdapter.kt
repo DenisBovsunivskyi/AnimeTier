@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.denisbovsunivskyi.animetier.databinding.ItemHorizontalAnimeBinding
+import com.denisbovsunivskyi.animetier.databinding.ItemVerticalGridAnimeBinding
 import com.denisbovsunivskyi.animetier.presentation.model.anime.AnimeListUi
 
 
-class TrendingAnimeAdapter : RecyclerView.Adapter<TrendingAnimeAdapter.AnimeViewHolder>() {
+class VerticalGridAnimeAdapter : RecyclerView.Adapter<VerticalGridAnimeAdapter.AnimeViewHolder>() {
     private val callback = object : DiffUtil.ItemCallback<AnimeListUi>() {
         override fun areItemsTheSame(
             oldItem: AnimeListUi,
@@ -29,7 +29,7 @@ class TrendingAnimeAdapter : RecyclerView.Adapter<TrendingAnimeAdapter.AnimeView
     val differ = AsyncListDiffer(this, callback)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder {
         val binding =
-            ItemHorizontalAnimeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemVerticalGridAnimeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AnimeViewHolder(binding)
     }
 
@@ -42,7 +42,7 @@ class TrendingAnimeAdapter : RecyclerView.Adapter<TrendingAnimeAdapter.AnimeView
         holder.bind(anime)
     }
 
-    inner class AnimeViewHolder(val binding: ItemHorizontalAnimeBinding) :
+    inner class AnimeViewHolder(val binding: ItemVerticalGridAnimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(anime: AnimeListUi) {
             binding.model = anime

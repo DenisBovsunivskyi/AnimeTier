@@ -2,6 +2,7 @@ package com.denisbovsunivskyi.animetier.presentation.di
 
 import android.content.Context
 import com.denisbovsunivskyi.animetier.data.api.AnimeServiceApi
+import com.denisbovsunivskyi.animetier.data.datasource.anime.AnimeAllPagingSource
 import com.denisbovsunivskyi.animetier.data.datasource.anime.AnimeDataSource
 import com.denisbovsunivskyi.animetier.data.datasource.anime.AnimeDataSourceImpl
 import com.denisbovsunivskyi.animetier.data.datasource.user.AuthDataSource
@@ -41,5 +42,10 @@ class DataSourceModule {
     @Singleton
     fun provideAnimeDataSource(animeServiceApi: AnimeServiceApi): AnimeDataSource {
         return AnimeDataSourceImpl(animeServiceApi)
+    }
+    @Provides
+    @Singleton
+    fun providePagingAnimeDataSource(animeServiceApi: AnimeServiceApi): AnimeAllPagingSource {
+        return AnimeAllPagingSource(animeServiceApi)
     }
 }

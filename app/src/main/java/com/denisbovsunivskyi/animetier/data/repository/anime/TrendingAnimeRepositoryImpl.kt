@@ -1,6 +1,6 @@
 package com.denisbovsunivskyi.animetier.data.repository.anime
 
-import com.denisbovsunivskyi.animetier.core.BaseRepository
+import com.denisbovsunivskyi.animetier.core.network.BaseRepository
 import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.data.datasource.anime.AnimeDataSource
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState

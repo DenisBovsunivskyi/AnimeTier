@@ -7,7 +7,7 @@ import com.denisbovsunivskyi.animetier.domain.repository.anime.TrendingAnimeRepo
 import com.denisbovsunivskyi.animetier.domain.usecase.auth.AuthUserUseCase
 import com.denisbovsunivskyi.animetier.domain.usecase.auth.CreateUserInRemoteDbUseCase
 import com.denisbovsunivskyi.animetier.domain.usecase.auth.RegisterUserUseCase
-import com.denisbovsunivskyi.animetier.domain.usecase.networkdata.anime.GetAllAnimeUseCase
+import com.denisbovsunivskyi.animetier.domain.usecase.networkdata.anime.GetAllPagingAnimeUseCase
 import com.denisbovsunivskyi.animetier.domain.usecase.networkdata.anime.GetTrendingAnimeUseCase
 import dagger.Module
 import dagger.Provides
@@ -43,8 +43,8 @@ class UseCaseModule {
     }
     @Provides
     @Singleton
-    fun provideGetAnimeUseCase(animeRepository: AnimeRepository): GetAllAnimeUseCase {
-        return GetAllAnimeUseCase(animeRepository)
+    fun provideGetAnimeUseCase(animeRepository: AnimeRepository): GetAllPagingAnimeUseCase {
+        return GetAllPagingAnimeUseCase(animeRepository)
     }
 
 }

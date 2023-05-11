@@ -26,3 +26,23 @@ class MarginHorizontalItemDecoration(
         }
     }
 }
+class MarginVerticalItemDecoration(
+    private val topSize: Int = 0,
+    private val leftSize: Int = 0,
+    private val rightSize: Int = 0,
+    private val bottomSize: Int = 0
+) :
+    RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(
+        outRect: Rect, view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        with(outRect) {
+            left = leftSize
+            top = topSize
+            right = rightSize
+            bottom = bottomSize
+        }
+    }
+}

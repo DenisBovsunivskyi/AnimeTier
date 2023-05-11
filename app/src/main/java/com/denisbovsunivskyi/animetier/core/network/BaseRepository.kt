@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.core
+package com.denisbovsunivskyi.animetier.core.network
 
 import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.data.models.DataLayerMapper

@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.presentation.ui.adapter
+package com.denisbovsunivskyi.animetier.presentation.ui.adapter.home_screen
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

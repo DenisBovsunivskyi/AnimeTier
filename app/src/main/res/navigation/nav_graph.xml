@@ -55,7 +55,7 @@
         android:id="@+id/homeListFragment"
         android:name="com.denisbovsunivskyi.animetier.presentation.ui.fragments.HomeList"
         android:label="fragment_home_list"
-        tools:layout="@layout/fragment_home_list" >
+        tools:layout="@layout/fragment_home" >
     </fragment>
     <fragment
         android:id="@+id/registrationProfileInfoFragment"

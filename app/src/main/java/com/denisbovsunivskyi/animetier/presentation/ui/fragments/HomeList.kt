@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.denisbovsunivskyi.animetier.core.fragment.BaseBindingFragment
-import com.denisbovsunivskyi.animetier.databinding.FragmentHomeListTestBinding
+import com.denisbovsunivskyi.animetier.databinding.FragmentHomeBinding
 import com.denisbovsunivskyi.animetier.presentation.model.DataItemType
-import com.denisbovsunivskyi.animetier.presentation.ui.adapter.MainAdapter
+import com.denisbovsunivskyi.animetier.presentation.ui.adapter.home_screen.MainAdapter
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.home.AllAnimeActions
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.home.AllAnimeViewModel
 import com.denisbovsunivskyi.animetier.presentation.utils.extentions.showToast
@@ -15,14 +15,14 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeList : BaseBindingFragment<FragmentHomeListTestBinding>() {
+class HomeList : BaseBindingFragment<FragmentHomeBinding>() {
     private val allAnimeViewModel by activityViewModels<AllAnimeViewModel>()
 
     private val allAnimeAdapter: MainAdapter by lazy {
         return@lazy MainAdapter()
     }
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeListTestBinding
-        get() = FragmentHomeListTestBinding::inflate
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
+        get() = FragmentHomeBinding::inflate
 
     override fun init() {
 

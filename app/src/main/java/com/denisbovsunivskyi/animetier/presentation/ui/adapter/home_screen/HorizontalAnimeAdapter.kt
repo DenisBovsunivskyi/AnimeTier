@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.presentation.ui.adapter
+package com.denisbovsunivskyi.animetier.presentation.ui.adapter.home_screen
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import com.denisbovsunivskyi.animetier.databinding.ItemHorizontalAnimeBinding
 import com.denisbovsunivskyi.animetier.presentation.model.anime.AnimeListUi
 
 
-class TrendingAnimeAdapter : RecyclerView.Adapter<TrendingAnimeAdapter.AnimeViewHolder>() {
+class HorizontalAnimeAdapter : RecyclerView.Adapter<HorizontalAnimeAdapter.AnimeViewHolder>() {
     private val callback = object : DiffUtil.ItemCallback<AnimeListUi>() {
         override fun areItemsTheSame(
             oldItem: AnimeListUi,

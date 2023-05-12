@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.presentation.ui.adapter
+package com.denisbovsunivskyi.animetier.presentation.ui.adapter.home_screen
 
 import android.view.LayoutInflater
 import android.view.View
@@ -50,7 +50,6 @@ class MainAdapter : ListAdapter<MainAnimeData, MainAnimeViewHolder>(AnimeMainDif
         return when (getItem(position).type) {
             DataItemType.TRENDING_ANIME ->
                 R.layout.item_horizontal_list_main_recycler
-
             else ->
                 R.layout.item_vertical_list_main_recycler
         }

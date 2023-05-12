@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.presentation.ui.adapter
+package com.denisbovsunivskyi.animetier.presentation.ui.adapter.home_screen
 
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,22 +23,22 @@ sealed class MainAnimeViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
         MainAnimeViewHolder(binding) {
         fun bind(allAnime: MainAnimeData) {
             binding.textTitle.text = binding.textTitle.context.getString(allAnime.type.stringId)
-            binding.verticalRc.addItemDecoration(
+            binding.verticalRv.addItemDecoration(
                 MarginVerticalItemDecoration(
-                    rightSize = binding.verticalRc.context.resources.getDimensionPixelSize(
+                    rightSize = binding.verticalRv.context.resources.getDimensionPixelSize(
                         R.dimen.recycler_margin
                     ),
-                    bottomSize = binding.verticalRc.context.resources.getDimensionPixelSize(
+                    bottomSize = binding.verticalRv.context.resources.getDimensionPixelSize(
                         R.dimen.recycler_margin_bottom
                     ),
-                    leftSize = binding.verticalRc.context.resources.getDimensionPixelSize(
+                    leftSize = binding.verticalRv.context.resources.getDimensionPixelSize(
                         R.dimen.recycler_margin)
                 )
             )
             val childMembersAdapter = VerticalGridAnimeAdapter()
             childMembersAdapter.differ.submitList(allAnime.animeList)
-            binding.verticalRc.layoutManager = GridLayoutManager(itemView.context, 2)
-            binding.verticalRc.adapter = childMembersAdapter
+            binding.verticalRv.layoutManager = GridLayoutManager(itemView.context, 2)
+            binding.verticalRv.adapter = childMembersAdapter
             binding.textTitle.setOnClickListener {
                 titleClickListener?.invoke(it, allAnime.type, bindingAdapterPosition)
             }
@@ -59,7 +59,7 @@ sealed class MainAnimeViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     )
                 )
             )
-            val childMembersAdapter = TrendingAnimeAdapter()
+            val childMembersAdapter = HorizontalAnimeAdapter()
             childMembersAdapter.differ.submitList(trending.animeList)
             binding.horizontalRv.layoutManager =
                 LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)

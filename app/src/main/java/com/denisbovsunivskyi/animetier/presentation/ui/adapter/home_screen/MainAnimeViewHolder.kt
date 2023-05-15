@@ -19,36 +19,44 @@ sealed class MainAnimeViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
     var titleClickListener: ((view: View, type: DataItemType, position: Int) -> Unit)? = null
 
 
-    class AllAnimeViewHolder(private val binding: ItemVerticalListMainRecyclerBinding) :
+    class VerticalAnimeViewHolder(private val binding: ItemVerticalListMainRecyclerBinding) :
         MainAnimeViewHolder(binding) {
-        fun bind(allAnime: MainAnimeData) {
-            binding.textTitle.text = binding.textTitle.context.getString(allAnime.type.stringId)
+        private val childMembersAdapter by lazy { VerticalGridAnimeAdapter() }
+
+        init {
             binding.verticalRv.addItemDecoration(
                 MarginVerticalItemDecoration(
-                    rightSize = binding.verticalRv.context.resources.getDimensionPixelSize(
-                        R.dimen.recycler_margin
-                    ),
                     bottomSize = binding.verticalRv.context.resources.getDimensionPixelSize(
                         R.dimen.recycler_margin_bottom
                     ),
                     leftSize = binding.verticalRv.context.resources.getDimensionPixelSize(
-                        R.dimen.recycler_margin)
+                        R.dimen.recycler_margin
+                    ),
+                    rightSize = binding.verticalRv.context.resources.getDimensionPixelSize(
+                        R.dimen.recycler_margin
+                    )
+
                 )
             )
-            val childMembersAdapter = VerticalGridAnimeAdapter()
-            childMembersAdapter.differ.submitList(allAnime.animeList)
             binding.verticalRv.layoutManager = GridLayoutManager(itemView.context, 2)
             binding.verticalRv.adapter = childMembersAdapter
+
+        }
+
+        fun bind(allAnime: MainAnimeData) {
+            binding.textTitle.text = binding.textTitle.context.getString(allAnime.animeType.stringId)
+            childMembersAdapter.differ.submitList(allAnime.animeList)
             binding.textTitle.setOnClickListener {
                 titleClickListener?.invoke(it, allAnime.type, bindingAdapterPosition)
             }
         }
     }
 
-    class TrendingViewHolder(private val binding: ItemHorizontalListMainRecyclerBinding) :
+    class HorizontalViewHolder(private val binding: ItemHorizontalListMainRecyclerBinding) :
         MainAnimeViewHolder(binding) {
-        fun bind(trending: MainAnimeData) {
-            binding.textTitle.text = binding.textTitle.context.getString(trending.type.stringId)
+        private val childMembersAdapter by lazy { HorizontalAnimeAdapter() }
+
+        init {
             binding.horizontalRv.addItemDecoration(
                 MarginHorizontalItemDecoration(
                     rightSize = binding.horizontalRv.context.resources.getDimensionPixelSize(
@@ -59,12 +67,14 @@ sealed class MainAnimeViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
                     )
                 )
             )
-            val childMembersAdapter = HorizontalAnimeAdapter()
-            childMembersAdapter.differ.submitList(trending.animeList)
             binding.horizontalRv.layoutManager =
                 LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
             binding.horizontalRv.adapter = childMembersAdapter
+        }
 
+        fun bind(trending: MainAnimeData) {
+            binding.textTitle.text = binding.textTitle.context.getString(trending.animeType.stringId)
+            childMembersAdapter.differ.submitList(trending.animeList)
         }
     }
 

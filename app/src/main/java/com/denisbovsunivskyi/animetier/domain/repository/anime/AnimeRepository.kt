@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface AnimeRepository {
     suspend  fun fetchPagingAnime(): Flow<PagingData<AnimeModel>>
-    suspend fun fetchAllAnime(): Flow<ResponseState<AnimeData, UniversalText>>
+    suspend fun fetchAllAnime(sortType:String?,status:String?): Flow<ResponseState<AnimeData, UniversalText>>
 }

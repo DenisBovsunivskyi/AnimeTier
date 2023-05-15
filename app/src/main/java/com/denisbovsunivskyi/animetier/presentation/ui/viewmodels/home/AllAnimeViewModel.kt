@@ -9,6 +9,7 @@ import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.data.models.user.ResponseState
 import com.denisbovsunivskyi.animetier.domain.usecase.networkdata.anime.GetAllAnimeUseCase
 import com.denisbovsunivskyi.animetier.domain.usecase.networkdata.anime.GetTrendingAnimeUseCase
+import com.denisbovsunivskyi.animetier.presentation.model.AnimeListType
 import com.denisbovsunivskyi.animetier.presentation.model.DataItemType
 import com.denisbovsunivskyi.animetier.presentation.model.MainAnimeData
 import com.denisbovsunivskyi.animetier.presentation.model.anime.AnimeListUi
@@ -25,8 +26,14 @@ class AllAnimeViewModel @Inject constructor(
     private val mainAnimeData: MutableLiveData<List<MainAnimeData>> =
         MutableLiveData(
             listOf(
-                MainAnimeData(1, DataItemType.TRENDING_ANIME, emptyList()),
-                MainAnimeData(2, DataItemType.ALL_ANIME_LIST, emptyList())
+                MainAnimeData(1, DataItemType.HORIZONTAL_LIST, AnimeListType.TRENDING, emptyList()),
+                MainAnimeData(
+                    2,
+                    DataItemType.HORIZONTAL_LIST,
+                    AnimeListType.POPULAR_ONGOING,
+                    emptyList()
+                ),
+                MainAnimeData(3, DataItemType.VERTICAL_LIST, AnimeListType.ALL, emptyList()),
             )
         )
     private val mAllAnimeEventLiveData: MutableLiveData<Event<AllAnimeActions>> =
@@ -39,8 +46,13 @@ class AllAnimeViewModel @Inject constructor(
     fun getMainAnimeLiveData(): LiveData<List<MainAnimeData>> = mainAnimeData
 
     init {
+        fetchAllData()
+    }
+
+    fun fetchAllData() {
         getTrendingAnimeData()
         getAllAnimeData()
+        getPopularCurrentAnimeData()
     }
 
     fun getTrendingAnimeData() {
@@ -52,16 +64,50 @@ class AllAnimeViewModel @Inject constructor(
                         mAllAnimeEventLiveData.postValue(Event(AllAnimeActions.Success))
                         postNewListToLiveData(
                             response.data.data.map { it.toUI() },
-                            DataItemType.TRENDING_ANIME
+                            AnimeListType.TRENDING
                         )
                     }
 
                     is ResponseState.Error -> {
-                        mAllAnimeEventLiveData.postValue(Event(AllAnimeActions.Failed.LoadingFailed(response.rawResponse)))
+                        mAllAnimeEventLiveData.postValue(
+                            Event(
+                                AllAnimeActions.Failed.LoadingFailed(
+                                    response.rawResponse
+                                )
+                            )
+                        )
 
                     }
                 }
             }
+
+        }
+    }
+
+    fun getPopularCurrentAnimeData() {
+        viewModelScope.launch {
+            allAnimeUseCase.execute(sortType = "-user_count", status = "current")
+                .collect { response ->
+                    when (response) {
+                        is ResponseState.Success -> {
+                            mAllAnimeEventLiveData.postValue(Event(AllAnimeActions.Success))
+                            postNewListToLiveData(
+                                response.data.data.map { it.toUI() },
+                                AnimeListType.POPULAR_ONGOING
+                            )
+                        }
+
+                        is ResponseState.Error -> {
+                            mAllAnimeEventLiveData.postValue(
+                                Event(
+                                    AllAnimeActions.Failed.LoadingFailed(
+                                        response.rawResponse
+                                    )
+                                )
+                            )
+                        }
+                    }
+                }
 
         }
     }
@@ -74,12 +120,18 @@ class AllAnimeViewModel @Inject constructor(
                         mAllAnimeEventLiveData.postValue(Event(AllAnimeActions.Success))
                         postNewListToLiveData(
                             response.data.data.map { it.toUI() },
-                            DataItemType.ALL_ANIME_LIST
+                            AnimeListType.ALL
                         )
                     }
 
-                    is ResponseState.Error ->  {
-                        mAllAnimeEventLiveData.postValue(Event(AllAnimeActions.Failed.LoadingFailed(response.rawResponse)))
+                    is ResponseState.Error -> {
+                        mAllAnimeEventLiveData.postValue(
+                            Event(
+                                AllAnimeActions.Failed.LoadingFailed(
+                                    response.rawResponse
+                                )
+                            )
+                        )
                     }
                 }
             }
@@ -87,9 +139,9 @@ class AllAnimeViewModel @Inject constructor(
         }
     }
 
-    private fun postNewListToLiveData(list: List<AnimeListUi>, dataItemType: DataItemType) {
+    private fun postNewListToLiveData(list: List<AnimeListUi>, animeListType: AnimeListType) {
         val copyList = mainAnimeData.value?.toMutableList() ?: mutableListOf()
-        copyList.find { it.type == dataItemType }?.animeList = list
+        copyList.find { it.animeType == animeListType }?.animeList = list
         mainAnimeData.postValue(copyList)
     }
 }

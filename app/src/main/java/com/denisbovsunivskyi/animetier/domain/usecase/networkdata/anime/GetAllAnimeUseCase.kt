@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetAllAnimeUseCase @Inject constructor(
     private val repository: AnimeRepository
 ) {
-   suspend fun execute() = repository.fetchAllAnime()
+   suspend fun execute(sortType:String? = null,status:String? = null) = repository.fetchAllAnime(sortType,status)
 }

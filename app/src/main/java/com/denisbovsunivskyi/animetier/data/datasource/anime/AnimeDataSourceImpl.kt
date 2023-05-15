@@ -12,8 +12,8 @@ class AnimeDataSourceImpl @Inject constructor(
         return animeServiceApi.getTrendingAnime()
     }
 
-    override suspend fun fetchAllAnime(): Response<AnimeDataDto> {
-        return animeServiceApi.getAllAnime()
+    override suspend fun fetchAllAnime(sortType:String?,status:String?): Response<AnimeDataDto> {
+        return animeServiceApi.getAllAnime(sortType = sortType, status = status)
     }
 
 }

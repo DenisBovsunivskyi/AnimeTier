@@ -30,7 +30,7 @@
                 android:alpha="0.9"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_test_image_for_recycler_horizontal"
-                app:setHorizontalAnimeImage="@{model.posterImage.original}" />
+                app:setHorizontalAnimeImage="@{model.posterImage.medium != null ? model.posterImage.medium : model.posterImage.original}" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"

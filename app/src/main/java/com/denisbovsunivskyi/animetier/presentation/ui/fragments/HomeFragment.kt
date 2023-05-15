@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.denisbovsunivskyi.animetier.R
 import com.denisbovsunivskyi.animetier.core.fragment.BaseBindingFragment
 import com.denisbovsunivskyi.animetier.databinding.FragmentHomeBinding
-import com.denisbovsunivskyi.animetier.presentation.model.DataItemType
 import com.denisbovsunivskyi.animetier.presentation.ui.adapter.home_screen.MainAdapter
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.home.AllAnimeActions
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.home.AllAnimeViewModel
@@ -15,12 +16,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeList : BaseBindingFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
     private val allAnimeViewModel by activityViewModels<AllAnimeViewModel>()
 
-    private val allAnimeAdapter: MainAdapter by lazy {
-        return@lazy MainAdapter()
-    }
+    private lateinit var allAnimeAdapter: MainAdapter
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
@@ -37,34 +36,29 @@ class HomeList : BaseBindingFragment<FragmentHomeBinding>() {
                 LinearLayoutManager.VERTICAL, false
             )
         }
+        allAnimeAdapter = MainAdapter()
         binding.allRecycler.adapter = allAnimeAdapter
     }
 
 
     override fun initListeners() {
-        allAnimeAdapter.titleClickListener = { view, item, position ->
-            when (item) {
-                DataItemType.TRENDING_ANIME -> {
-                    context?.showToast("Trending anime was clicked")
-                }
-
-                DataItemType.ALL_ANIME_LIST -> {
-                    context?.showToast("All anime was clicked")
-                }
-            }
-
-        }
         binding.swipeToRefresh.setOnRefreshListener {
-            allAnimeViewModel.getAllAnimeData()
-            allAnimeViewModel.getTrendingAnimeData()
+            allAnimeViewModel.fetchAllData()
             binding.swipeToRefresh.isRefreshing = false
         }
     }
 
+    override fun onDestroyView() {
+        requireView().findViewById<RecyclerView>(R.id.all_recycler).adapter = null
+        super.onDestroyView()
+    }
+
     override fun initViewModels() {
-        allAnimeViewModel.getMainAnimeLiveData().observe(viewLifecycleOwner) { result ->
+        allAnimeViewModel.getMainAnimeLiveData().observe(
+            this.viewLifecycleOwner
+        ) { result ->
             val newList = result.map { it.copy() }
-            allAnimeAdapter.submitList(newList.toList())
+            allAnimeAdapter.submitList(newList)
         }
         allAnimeViewModel.getEventLiveData().observe(viewLifecycleOwner) { state ->
             val event = state.contentIfNotHandled
@@ -82,6 +76,7 @@ class HomeList : BaseBindingFragment<FragmentHomeBinding>() {
                     is AllAnimeActions.Loading -> {
                         binding.progressBar.show()
                     }
+
                 }
             }
 

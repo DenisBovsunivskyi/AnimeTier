@@ -29,7 +29,7 @@
                 android:layout_height="210dp"
                 android:alpha="0.9"
                 android:src="@drawable/ic_test_image_for_recycler_horizontal"
-                app:setVerticalAnimeImage="@{model.posterImage.original}" />
+                app:setVerticalAnimeImage="@{model.posterImage}" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"

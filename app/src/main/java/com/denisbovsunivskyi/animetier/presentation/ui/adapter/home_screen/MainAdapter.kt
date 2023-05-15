@@ -18,13 +18,13 @@ class MainAdapter : ListAdapter<MainAnimeData, MainAnimeViewHolder>(AnimeMainDif
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAnimeViewHolder {
         return when (viewType) {
-            R.layout.item_vertical_list_main_recycler -> MainAnimeViewHolder.AllAnimeViewHolder(
+            R.layout.item_vertical_list_main_recycler -> MainAnimeViewHolder.VerticalAnimeViewHolder(
                 ItemVerticalListMainRecyclerBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
 
-            R.layout.item_horizontal_list_main_recycler -> MainAnimeViewHolder.TrendingViewHolder(
+            R.layout.item_horizontal_list_main_recycler -> MainAnimeViewHolder.HorizontalViewHolder(
                 ItemHorizontalListMainRecyclerBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -41,14 +41,14 @@ class MainAdapter : ListAdapter<MainAnimeData, MainAnimeViewHolder>(AnimeMainDif
 
         val item = getItem(position)
         when (holder) {
-            is MainAnimeViewHolder.AllAnimeViewHolder -> holder.bind(item as MainAnimeData)
-            is MainAnimeViewHolder.TrendingViewHolder -> holder.bind(item as MainAnimeData)
+            is MainAnimeViewHolder.VerticalAnimeViewHolder -> holder.bind(item as MainAnimeData)
+            is MainAnimeViewHolder.HorizontalViewHolder -> holder.bind(item as MainAnimeData)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position).type) {
-            DataItemType.TRENDING_ANIME ->
+            DataItemType.HORIZONTAL_LIST ->
                 R.layout.item_horizontal_list_main_recycler
             else ->
                 R.layout.item_vertical_list_main_recycler

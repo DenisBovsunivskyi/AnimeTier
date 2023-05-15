@@ -24,9 +24,9 @@ class AnimeRepositoryImpl(
         ).flow
     }
 
-    override suspend fun fetchAllAnime(): Flow<ResponseState<AnimeData, UniversalText>> {
+    override suspend fun fetchAllAnime(sortType:String?,status:String?): Flow<ResponseState<AnimeData, UniversalText>> {
         return doNetworkRequestWithMapping {
-            animeDataSource.fetchAllAnime()
+            animeDataSource.fetchAllAnime(sortType,status)
         }
     }
 }

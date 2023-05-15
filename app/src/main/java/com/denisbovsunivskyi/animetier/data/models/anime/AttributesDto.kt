@@ -7,23 +7,23 @@ import com.google.gson.annotations.SerializedName
 
 data class AttributesDto(
     @SerializedName("abbreviatedTitles")
-    val abbreviatedTitles: List<String>,
+    val abbreviatedTitles: List<String>?,
     @SerializedName("ageRating")
     val ageRating: String?,
     @SerializedName("ageRatingGuide")
     val ageRatingGuide: String?,
     @SerializedName("averageRating")
-    val averageRating: String,
+    val averageRating: String?,
     @SerializedName("canonicalTitle")
     val canonicalTitle: String,
     @SerializedName("coverImage")
     val coverImage: CoverImage,
     @SerializedName("coverImageTopOffset")
-    val coverImageTopOffset: Int,
+    val coverImageTopOffset: Int?,
     @SerializedName("createdAt")
-    val createdAt: String,
+    val createdAt: String?,
     @SerializedName("description")
-    val description: String,
+    val description: String?,
     @SerializedName("endDate")
     val endDate: String?,
     @SerializedName("episodeCount")
@@ -31,31 +31,31 @@ data class AttributesDto(
     @SerializedName("episodeLength")
     val episodeLength: Int?,
     @SerializedName("favoritesCount")
-    val favoritesCount: Int,
+    val favoritesCount: Int?,
     @SerializedName("nextRelease")
     val nextRelease: String?,
     @SerializedName("nsfw")
-    val nsfw: Boolean,
+    val nsfw: Boolean?,
     @SerializedName("popularityRank")
-    val popularityRank: Int,
+    val popularityRank: Int?,
     @SerializedName("posterImage")
     val posterImage: PosterImage,
     @SerializedName("ratingFrequencies")
     val ratingFrequencies: RatingFrequencies,
     @SerializedName("ratingRank")
-    val ratingRank: Int,
+    val ratingRank: Int?,
     @SerializedName("showType")
     val showType: String,
     @SerializedName("slug")
     val slug: String,
     @SerializedName("startDate")
-    val startDate: String,
+    val startDate: String?,
     @SerializedName("status")
-    val status: String,
+    val status: String?,
     @SerializedName("subtype")
-    val subtype: String,
+    val subtype: String?,
     @SerializedName("synopsis")
-    val synopsis: String,
+    val synopsis: String?,
     @SerializedName("tba")
     val tba: Any?,
     @SerializedName("titles")
@@ -63,9 +63,9 @@ data class AttributesDto(
     @SerializedName("totalLength")
     val totalLength: Int?,
     @SerializedName("updatedAt")
-    val updatedAt: String,
+    val updatedAt: String?,
     @SerializedName("userCount")
-    val userCount: Int,
+    val userCount: Int?,
     @SerializedName("youtubeVideoId")
     val youtubeVideoId: String?
 ) : DataLayerMapper<Attributes> {

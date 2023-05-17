@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
     private val allAnimeViewModel by activityViewModels<AllAnimeViewModel>()
 
-    private lateinit var allAnimeAdapter: MainAdapter
+    private  val allAnimeAdapter: MainAdapter by lazy { MainAdapter() }
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
@@ -36,7 +36,6 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
                 LinearLayoutManager.VERTICAL, false
             )
         }
-        allAnimeAdapter = MainAdapter()
         binding.allRecycler.adapter = allAnimeAdapter
     }
 

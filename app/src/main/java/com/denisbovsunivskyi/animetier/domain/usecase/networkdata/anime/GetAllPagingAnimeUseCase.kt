@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetAllPagingAnimeUseCase @Inject constructor(
     private val repository: AnimeRepository
 ) {
-   suspend fun execute() = repository.fetchPagingAnime()
+   suspend fun execute() = repository.fetchPagingAnime(null,null)
 }

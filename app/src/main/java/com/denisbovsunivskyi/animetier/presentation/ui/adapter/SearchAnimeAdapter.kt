@@ -9,7 +9,7 @@ import com.denisbovsunivskyi.animetier.databinding.ItemVerticalGridAnimeBinding
 import com.denisbovsunivskyi.animetier.presentation.model.anime.AnimeListUi
 
 
-class AllAnimeAdapter : PagingDataAdapter<AnimeListUi, AllAnimeAdapter.AnimeViewHolder>(AnimeSearchDiffCallBack()) {
+class SearchAnimeAdapter : PagingDataAdapter<AnimeListUi, SearchAnimeAdapter.AnimeViewHolder>(AnimeSearchDiffCallBack()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder {

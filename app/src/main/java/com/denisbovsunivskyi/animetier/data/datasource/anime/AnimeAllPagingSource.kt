@@ -9,6 +9,7 @@ class AnimeAllPagingSource(
     private val api: AnimeServiceApi
 ) : PagingSource<Int, AnimeModel>() {
 
+
     override fun getRefreshKey(state: PagingState<Int, AnimeModel>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
         val anchorPage = state.closestPageToPosition(anchorPosition) ?: return null

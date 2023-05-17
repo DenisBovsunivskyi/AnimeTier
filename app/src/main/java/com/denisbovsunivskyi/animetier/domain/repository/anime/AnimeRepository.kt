@@ -8,6 +8,6 @@ import com.denisbovsunivskyi.animetier.domain.models.anime.AnimeModel
 import kotlinx.coroutines.flow.Flow
 
 interface AnimeRepository {
-    suspend  fun fetchPagingAnime(): Flow<PagingData<AnimeModel>>
+    suspend  fun fetchPagingAnime(sortType:String?,status:String?): Flow<PagingData<AnimeModel>>
     suspend fun fetchAllAnime(sortType:String?,status:String?): Flow<ResponseState<AnimeData, UniversalText>>
 }

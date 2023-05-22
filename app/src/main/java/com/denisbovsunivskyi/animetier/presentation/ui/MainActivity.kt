@@ -6,8 +6,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.denisbovsunivskyi.animetier.R
 import com.denisbovsunivskyi.animetier.core.activity.BaseNavigationActivity
 import com.denisbovsunivskyi.animetier.databinding.ActivityMainBinding
-import com.denisbovsunivskyi.animetier.presentation.utils.goneView
-import com.denisbovsunivskyi.animetier.presentation.utils.showView
+import com.denisbovsunivskyi.animetier.presentation.utils.extensions.goneView
+import com.denisbovsunivskyi.animetier.presentation.utils.extensions.showView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint

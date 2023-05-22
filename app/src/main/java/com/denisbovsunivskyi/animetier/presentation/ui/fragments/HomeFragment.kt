@@ -11,7 +11,7 @@ import com.denisbovsunivskyi.animetier.databinding.FragmentHomeBinding
 import com.denisbovsunivskyi.animetier.presentation.ui.adapter.home_screen.MainAdapter
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.home.AllAnimeActions
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.home.AllAnimeViewModel
-import com.denisbovsunivskyi.animetier.presentation.utils.extentions.showToast
+import com.denisbovsunivskyi.animetier.presentation.utils.extensions.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 

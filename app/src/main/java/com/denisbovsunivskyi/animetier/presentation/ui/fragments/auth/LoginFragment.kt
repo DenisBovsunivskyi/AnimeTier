@@ -20,10 +20,10 @@ import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.databinding.FragmentLoginBinding
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.auth.AuthActions
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.auth.LoginViewModel
-import com.denisbovsunivskyi.animetier.presentation.utils.clearError
+import com.denisbovsunivskyi.animetier.presentation.utils.extensions.clearError
 import com.denisbovsunivskyi.animetier.presentation.utils.colorizeEnd
-import com.denisbovsunivskyi.animetier.presentation.utils.setErrorMsg
-import com.denisbovsunivskyi.animetier.presentation.utils.showView
+import com.denisbovsunivskyi.animetier.presentation.utils.extensions.setErrorMsg
+import com.denisbovsunivskyi.animetier.presentation.utils.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

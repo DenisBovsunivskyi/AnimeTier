@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.presentation.utils.extentions
+package com.denisbovsunivskyi.animetier.presentation.utils.extensions
 
 import android.net.Uri
 import androidx.appcompat.widget.AppCompatImageView

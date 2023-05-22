@@ -15,9 +15,9 @@ import com.denisbovsunivskyi.animetier.core.fragment.BaseBindingFragment
 import com.denisbovsunivskyi.animetier.databinding.FragmentRegistrationProfileInfoBinding
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.auth.RegistrationProfileActions
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.auth.RegistrationProfileViewModel
-import com.denisbovsunivskyi.animetier.presentation.utils.clearFiles
+import com.denisbovsunivskyi.animetier.presentation.utils.extensions.clearFiles
 import com.denisbovsunivskyi.animetier.presentation.utils.constatns.ERROR_TAG
-import com.denisbovsunivskyi.animetier.presentation.utils.extentions.loadNewImageFromUri
+import com.denisbovsunivskyi.animetier.presentation.utils.extensions.loadNewImageFromUri
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

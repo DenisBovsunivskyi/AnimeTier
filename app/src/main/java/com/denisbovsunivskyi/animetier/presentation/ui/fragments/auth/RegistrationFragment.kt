@@ -10,8 +10,8 @@ import com.denisbovsunivskyi.animetier.core.utils.validation.UniversalText
 import com.denisbovsunivskyi.animetier.databinding.FragmentRegistrationBinding
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.auth.RegisterActions
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.auth.RegistrationViewModel
-import com.denisbovsunivskyi.animetier.presentation.utils.clearError
-import com.denisbovsunivskyi.animetier.presentation.utils.setErrorMsg
+import com.denisbovsunivskyi.animetier.presentation.utils.extensions.clearError
+import com.denisbovsunivskyi.animetier.presentation.utils.extensions.setErrorMsg
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

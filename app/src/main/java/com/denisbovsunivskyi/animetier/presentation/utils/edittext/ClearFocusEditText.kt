@@ -7,7 +7,7 @@ import android.view.View
 import com.denisbovsunivskyi.animetier.presentation.utils.isDonePressed
 import com.denisbovsunivskyi.animetier.presentation.utils.isEnterPressed
 import com.denisbovsunivskyi.animetier.presentation.utils.isNextPressed
-import com.denisbovsunivskyi.animetier.presentation.utils.setHideKeyboardWrapperListener
+import com.denisbovsunivskyi.animetier.presentation.utils.extensions.setHideKeyboardWrapperListener
 import com.denisbovsunivskyi.animetier.presentation.utils.edittext.listener.OnKeyActionDoneListener
 import com.denisbovsunivskyi.animetier.presentation.utils.edittext.listener.OnKeyBackPressedListener
 

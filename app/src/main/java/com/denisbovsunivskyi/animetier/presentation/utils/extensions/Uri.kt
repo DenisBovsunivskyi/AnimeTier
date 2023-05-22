@@ -1,4 +1,4 @@
-package com.denisbovsunivskyi.animetier.presentation.utils
+package com.denisbovsunivskyi.animetier.presentation.utils.extensions
 
 import android.content.Context
 import android.net.Uri

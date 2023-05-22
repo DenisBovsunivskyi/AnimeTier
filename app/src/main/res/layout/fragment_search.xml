@@ -20,34 +20,41 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/search_layout"
+                    style="@style/SearchInputLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
                     android:layout_weight="1"
-                    android:hint="@string/text_search"
-                    android:theme="@style/SearchInputLayout"
-                    app:endIconMode="clear_text"
+                    android:layout_marginStart="16dp"
+                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:startIconDrawable="@drawable/ic_search">
+                    app:endIconMode="clear_text"
+                    app:startIconDrawable="@drawable/ic_search"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/card_number_label">
 
                     <com.denisbovsunivskyi.animetier.presentation.utils.edittext.ClearFocusEditText
                         android:id="@+id/search_edit"
+                        style="@style/TextInputEditText"
+                        android:background="@null"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/grey_dark" />
-
-
+                        android:hint="@string/text_search"
+                        android:imeOptions="actionSearch"
+                        android:inputType="textAutoCorrect"
+                        android:lines="1"
+                      />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatImageButton
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.IconButton.Outlined"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:layout_marginEnd="10dp"
+                    app:cornerRadius="15dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/grey"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/primary"
-                    android:src="@drawable/ic_filter" />
+                    android:layout_marginEnd="10dp"
+                    app:icon="@drawable/ic_filter"
+                   />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 

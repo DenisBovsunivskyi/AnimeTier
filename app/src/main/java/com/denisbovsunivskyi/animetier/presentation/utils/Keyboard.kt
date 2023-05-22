@@ -15,3 +15,6 @@ fun isDonePressed(key: Int?): Boolean {
 fun isNextPressed(key: Int?): Boolean {
     return key == EditorInfo.IME_ACTION_NEXT
 }
+fun isSearchPressed(key: Int?): Boolean {
+    return key == EditorInfo.IME_ACTION_SEARCH
+}

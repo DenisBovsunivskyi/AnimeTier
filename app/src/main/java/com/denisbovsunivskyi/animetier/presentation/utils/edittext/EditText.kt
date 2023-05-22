@@ -3,21 +3,19 @@ package com.denisbovsunivskyi.animetier.presentation.utils.edittext
 import android.text.Editable
 import android.text.TextWatcher
 import com.denisbovsunivskyi.animetier.presentation.utils.edittext.listener.OnKeyActionDoneListener
-import com.denisbovsunivskyi.animetier.presentation.utils.edittext.listener.OnKeyBackPressedListener
+import com.denisbovsunivskyi.animetier.presentation.utils.edittext.listener.OnKeyActionSearchListener
 
-
- 
-fun ClearFocusEditText.applyBackPressedListener(block: () -> Unit) {
-    this.setOnBackPressedListener(object : OnKeyBackPressedListener {
-        override fun onBackPressed() {
-            block.invoke()
-        }
-    })
-}
 
 fun ClearFocusEditText.applyActionDonePressedListener(block: () -> Unit) {
     this.setOnActionDoneListener(object : OnKeyActionDoneListener {
         override fun onActionDone() {
+            block.invoke()
+        }
+    })
+}
+fun ClearFocusEditText.applyActionSearchPressedListener(block: () -> Unit) {
+    this.setOnActionSearchListener(object : OnKeyActionSearchListener {
+        override fun onActionSearch() {
             block.invoke()
         }
     })

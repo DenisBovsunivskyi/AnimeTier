@@ -2,6 +2,9 @@ package com.denisbovsunivskyi.animetier.presentation.ui.fragments
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +17,9 @@ import com.denisbovsunivskyi.animetier.databinding.FragmentSearchBinding
 import com.denisbovsunivskyi.animetier.presentation.ui.adapter.SearchAnimeAdapter
 import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.search.SearchAnimeViewModel
 import com.denisbovsunivskyi.animetier.presentation.utils.MarginVerticalItemDecoration
+import com.denisbovsunivskyi.animetier.presentation.utils.edittext.listener.OnKeyActionSearchListener
+import com.denisbovsunivskyi.animetier.presentation.utils.extensions.getSoftInputMode
+import com.denisbovsunivskyi.animetier.presentation.utils.extensions.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -24,12 +30,16 @@ class SearchFragment : BaseBindingFragment<FragmentSearchBinding>() {
 
     private val searchAnimeViewModel by activityViewModels<SearchAnimeViewModel>()
     private val searchAnimeAdapter by lazy { SearchAnimeAdapter() }
+    private var originalMode : Int? = null
 
     override fun init() {
-
+        initClearFocusInputs()
     }
 
     override fun initViews() {
+        originalMode = activity?.window?.getSoftInputMode()
+
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         binding.searchRv.apply {
             layoutManager = GridLayoutManager(
                 requireContext(),
@@ -54,12 +64,29 @@ class SearchFragment : BaseBindingFragment<FragmentSearchBinding>() {
     }
 
     override fun onDestroyView() {
-        requireView().findViewById<RecyclerView>(R.id.search_rv).adapter = null
         super.onDestroyView()
+        requireView().findViewById<RecyclerView>(R.id.search_rv).adapter = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        originalMode?.let { activity?.window?.setSoftInputMode(it) }
+
+    }
+    private fun initClearFocusInputs() {
+        binding.searchEdit.setTargetForCleanFocus(binding.searchLayout)
     }
 
     override fun initListeners() {
-
+        binding.searchEdit.setOnActionSearchListener(object: OnKeyActionSearchListener{
+            override fun onActionSearch() {
+                context?.showToast("Will be added soon")
+            }
+        })
+        binding.searchLayout.setStartIconOnClickListener {
+            binding.searchEdit.clearFocus()
+            context?.showToast("Will be added soon")
+        }
     }
 
     override fun initViewModels() {

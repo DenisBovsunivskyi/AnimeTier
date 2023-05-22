@@ -13,36 +13,47 @@
     <style name="Text.H3">
         <item name="android:textSize">24sp</item>
     </style>
+
     <style name="Text.H4">
         <item name="android:textSize">18sp</item>
     </style>
+
     <style name="Text.H4.White">
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="Text.H4.White.Bold">
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="Text.H5">
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="Text.H5.Light">
         <item name="android:textColor">@color/grey</item>
     </style>
+
     <style name="Text.H5.Dark">
         <item name="android:textColor">@color/grey_dark</item>
     </style>
+
     <style name="Text.H5.White">
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="Text.H5.White.Bold">
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="Text.H6">
         <item name="android:textSize">12sp</item>
     </style>
+
     <style name="Text.H6.White">
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="Text.H6.White.Bold">
         <item name="android:textStyle">bold</item>
     </style>
@@ -81,7 +92,15 @@
         <item name="android:focusable">true</item>
         <item name="errorTextColor">@color/black</item>
         <item name="errorIconTint">@color/black</item>
+        <item name="borderWidth">1dp</item>
+        <item name="boxStrokeColor">@color/grey</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxCornerRadiusTopEnd">15dp</item>
+        <item name="boxCornerRadiusTopStart">15dp</item>
+        <item name="boxCornerRadiusBottomStart">15dp</item>
+        <item name="boxCornerRadiusBottomEnd">15dp</item>
     </style>
+
     <style name="TextInputLayoutMultiline" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="colorPrimary">@color/grey</item>
         <item name="colorOnSurface">@color/grey</item>
@@ -100,6 +119,7 @@
         <item name="errorTextColor">@color/black</item>
         <item name="errorIconTint">@color/black</item>
     </style>
+
     <style name="TextAppearance.Hint" parent="TextAppearance.Design.Hint">
         <item name="hintTextColor">@color/white</item>
         <item name="android:textColorHint">@color/white</item>
@@ -116,6 +136,7 @@
         <item name="android:textColorHint">@color/grey</item>
         <item name="android:textColor">@color/grey</item>
     </style>
+
     <style name="TextInputMultilineEditText" parent="Widget.Material3.TextInputEditText.OutlinedBox">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:layout_width">match_parent</item>
@@ -175,6 +196,7 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item>
     </style>
+
     <style name="CircularProgress" parent="Widget.AppCompat.ProgressBar">
         <item name="colorAccent">@color/primary</item>
     </style>

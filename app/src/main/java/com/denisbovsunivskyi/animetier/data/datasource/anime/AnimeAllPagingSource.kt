@@ -9,7 +9,10 @@ class AnimeAllPagingSource(
     private val api: AnimeServiceApi
 ) : PagingSource<Int, AnimeModel>() {
 
-
+    private var searchQuery:String? = null
+    fun setSearchQuery(string:String?){
+        searchQuery = string
+    }
     override fun getRefreshKey(state: PagingState<Int, AnimeModel>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
         val anchorPage = state.closestPageToPosition(anchorPosition) ?: return null
@@ -19,7 +22,8 @@ class AnimeAllPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, AnimeModel> {
         return try {
             val nextPageNumber = params.key ?: 0
-            val response = api.getAllAnime(offset = nextPageNumber)
+            println(searchQuery)
+            val response = api.getAllAnime(search = searchQuery,offset = nextPageNumber)
             val body = response.body()?.toDomain()
 
             val nextKey =

@@ -3,7 +3,6 @@ package com.denisbovsunivskyi.animetier.presentation.utils.edittext
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import com.denisbovsunivskyi.animetier.presentation.utils.edittext.KeyboardHelper.clearFocusOnKeyboardHidden
 import com.denisbovsunivskyi.animetier.presentation.utils.edittext.listener.OnKeyActionDoneListener
 import com.denisbovsunivskyi.animetier.presentation.utils.edittext.listener.OnKeyActionSearchListener
 import com.denisbovsunivskyi.animetier.presentation.utils.extensions.setHideKeyboardWrapperListener
@@ -36,7 +35,7 @@ class ClearFocusEditText : TextInputEditText {
     private fun init() {
         initEditorActionListener()
         initCleanFocusWithRouting()
-        this.clearFocusOnKeyboardHidden()
+
     }
 
     private var actionDoneListener: OnKeyActionDoneListener? = null
@@ -110,6 +109,11 @@ class ClearFocusEditText : TextInputEditText {
 
     fun setOnActionSearchListener(listener: OnKeyActionSearchListener?) {
         this.actionSearchListener = listener
+    }
+
+    fun clearListeners() {
+        this.actionSearchListener = null
+        this.actionDoneListener = null
     }
 
     fun setTargetFocusView(targetView: View) {

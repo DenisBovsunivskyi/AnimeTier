@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding
 abstract class BaseBindingFragment<VDB : ViewDataBinding> : BaseFragment() {
 
     private var _binding: ViewDataBinding? = null
-    private var savedInstanceState: Bundle? = null
+    var savedInstanceState: Bundle? = null
 
     @Suppress("UNCHECKED_CAST")
     protected val binding: VDB get() = requireNotNull(_binding) as VDB
@@ -21,10 +21,14 @@ abstract class BaseBindingFragment<VDB : ViewDataBinding> : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        this.savedInstanceState = savedInstanceState
         _binding = bindingInflater.invoke(inflater, container, false)
         return requireNotNull(_binding).root
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -7,5 +7,7 @@ data class PosterImage(
     @SerializedName("original")
     val original: String,
     @SerializedName("medium")
-    val medium:String?
+    val medium: String?,
+    @SerializedName("small")
+    val small: String?
 )

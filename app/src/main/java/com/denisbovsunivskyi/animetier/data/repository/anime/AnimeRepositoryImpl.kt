@@ -17,7 +17,8 @@ class AnimeRepositoryImpl(
     private val animeAllPagingSource: AnimeAllPagingSource,
     private val animeDataSource: AnimeDataSource
 ) : BaseRepository(), AnimeRepository {
-    override suspend fun fetchPagingAnime(sortType:String?,status:String?): Flow<PagingData<AnimeModel>> {
+    override suspend fun fetchPagingAnime(search:String?,sortType:String?,status:String?): Flow<PagingData<AnimeModel>> {
+        animeAllPagingSource.setSearchQuery(search)
         return Pager(
             config = PagingConfig(pageSize = 15),
             pagingSourceFactory = { animeAllPagingSource }

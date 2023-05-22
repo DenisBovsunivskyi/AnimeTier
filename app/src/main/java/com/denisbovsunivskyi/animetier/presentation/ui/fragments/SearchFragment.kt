@@ -2,13 +2,7 @@ package com.denisbovsunivskyi.animetier.presentation.ui.fragments
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.Window
-import android.view.WindowManager
-import androidx.core.view.WindowCompat
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.denisbovsunivskyi.animetier.R
@@ -19,9 +13,8 @@ import com.denisbovsunivskyi.animetier.presentation.ui.viewmodels.search.SearchA
 import com.denisbovsunivskyi.animetier.presentation.utils.MarginVerticalItemDecoration
 import com.denisbovsunivskyi.animetier.presentation.utils.edittext.listener.OnKeyActionSearchListener
 import com.denisbovsunivskyi.animetier.presentation.utils.extensions.getSoftInputMode
-import com.denisbovsunivskyi.animetier.presentation.utils.extensions.showToast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class SearchFragment : BaseBindingFragment<FragmentSearchBinding>() {
@@ -30,7 +23,7 @@ class SearchFragment : BaseBindingFragment<FragmentSearchBinding>() {
 
     private val searchAnimeViewModel by activityViewModels<SearchAnimeViewModel>()
     private val searchAnimeAdapter by lazy { SearchAnimeAdapter() }
-    private var originalMode : Int? = null
+    private var originalMode: Int? = null
 
     override fun init() {
         initClearFocusInputs()
@@ -39,7 +32,6 @@ class SearchFragment : BaseBindingFragment<FragmentSearchBinding>() {
     override fun initViews() {
         originalMode = activity?.window?.getSoftInputMode()
 
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         binding.searchRv.apply {
             layoutManager = GridLayoutManager(
                 requireContext(),
@@ -71,34 +63,37 @@ class SearchFragment : BaseBindingFragment<FragmentSearchBinding>() {
     override fun onDestroy() {
         super.onDestroy()
         originalMode?.let { activity?.window?.setSoftInputMode(it) }
-
     }
+
     private fun initClearFocusInputs() {
         binding.searchEdit.setTargetForCleanFocus(binding.searchLayout)
     }
 
     override fun initListeners() {
-        binding.searchEdit.setOnActionSearchListener(object: OnKeyActionSearchListener{
+        var searchText: String? = null
+        binding.searchEdit.setOnActionSearchListener(object : OnKeyActionSearchListener {
             override fun onActionSearch() {
-                context?.showToast("Will be added soon")
+                searchText = binding.searchEdit.text.toString()
+                if (searchText?.isEmpty() == true) {
+                    searchText = null
+                }
+                searchAnimeViewModel.getAnimeList(searchText)
             }
         })
         binding.searchLayout.setStartIconOnClickListener {
+            searchText = binding.searchEdit.text.toString()
+            if (searchText?.isEmpty() == true) {
+                searchText = null
+            }
             binding.searchEdit.clearFocus()
-            context?.showToast("Will be added soon")
+            searchAnimeViewModel.getAnimeList(searchText)
         }
     }
 
     override fun initViewModels() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                searchAnimeViewModel.getAnimeList().collect {
-                    searchAnimeAdapter.submitData(lifecycle, it)
-                }
-            }
+        searchAnimeViewModel.getSearchAnimeList().observe(viewLifecycleOwner) {
+            searchAnimeAdapter.submitData(lifecycle, it)
         }
-
     }
-
 
 }

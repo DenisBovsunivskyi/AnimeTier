@@ -12,24 +12,26 @@ import com.denisbovsunivskyi.animetier.presentation.module.GlideApp
 object ImageBindingAdapter {
     @JvmStatic
     @BindingAdapter("setHorizontalAnimeImage")
-    fun bindingSetHorizontalAnimePhoto(view: AppCompatImageView, path: String?) {
+    fun bindingSetHorizontalAnimePhoto(view: AppCompatImageView, image: PosterImage?) {
+        val imageUrl = image?.small ?: image?.medium ?: image?.original
+
         GlideApp.with(view)
             .asDrawable()
-            .load(path)
+            .load(imageUrl)
             .transform(CenterCrop())
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .into(view)
     }
 
     @JvmStatic
     @BindingAdapter("setVerticalAnimeImage")
     fun bindingSetVerticalAnimePhoto(view: AppCompatImageView, image: PosterImage?) {
-        val imageUrl = image?.medium ?: image?.original
+        val imageUrl = image?.small ?: image?.medium ?: image?.original
         GlideApp.with(view)
             .asDrawable()
             .load(imageUrl)
             .transform(CenterCrop())
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .into(view)
     }
 
@@ -37,7 +39,7 @@ object ImageBindingAdapter {
     @BindingAdapter("setLandscapeAnimeCoverImage")
     fun bindingSetLandscapeAnimeCoverImage(view: AppCompatImageView, anime: AnimeListUi) {
         val imageUrl =
-            anime.coverImage?.original ?: anime.posterImage?.original
+            anime.coverImage?.original ?: anime.posterImage?.medium ?: anime.posterImage?.original
 
         GlideApp.with(view)
             .asDrawable()

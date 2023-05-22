@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.denisbovsunivskyi.animetier.R
 import com.denisbovsunivskyi.animetier.core.fragment.BaseBindingFragment
 import com.denisbovsunivskyi.animetier.databinding.FragmentHomeBinding
 import com.denisbovsunivskyi.animetier.presentation.ui.adapter.home_screen.MainAdapter
@@ -19,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
     private val allAnimeViewModel by activityViewModels<AllAnimeViewModel>()
 
-    private  val allAnimeAdapter: MainAdapter by lazy { MainAdapter() }
+    private val allAnimeAdapter: MainAdapter by lazy { MainAdapter() }
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
@@ -48,7 +46,7 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
     }
 
     override fun onDestroyView() {
-        requireView().findViewById<RecyclerView>(R.id.all_recycler).adapter = null
+        binding.allRecycler.adapter = null
         super.onDestroyView()
     }
 

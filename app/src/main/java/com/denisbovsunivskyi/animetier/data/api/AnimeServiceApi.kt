@@ -16,6 +16,7 @@ interface AnimeServiceApi {
 
     @GET(GET_ANIME)
     suspend fun getAllAnime(
+        @Query("filter[text]") search:String? = null,
         @Query("page[limit]") limit: Int = 15,
         @Query("page[offset]") offset: Int = 0,
         @Query("filter[status]") status: String? = null,
